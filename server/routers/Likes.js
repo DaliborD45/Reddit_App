@@ -1,32 +1,77 @@
 const express = require("express");
 const router = express.Router();
-const { Posts } = require("../models/");
+const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
+const prisma = new PrismaClient();
 
-router.get("/",async(req,res) => {
-    const allPosts = await Posts.findAll()  
-    res.status(200).json(allPosts)
-})
-router.post("/addPost",checkAuth,async(req,res) => {
-    const username = req.user.username
-    const {title,text} = req.body
-    try {
-        const addedPost = await Posts.create({username,title,text})
-        res.status(200).json(addedPost)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
+router.post("/", checkAuth, async (req, res) => {
+  const authorId = req.user.id;
+  const { status, postId } = req.body;
+  const isVotedAlready = await prisma.like.findFirst({
+    where: { authorId: parseInt(authorId), postId: parseInt(postId) },
+  });
+  if (
+    (isVotedAlready &&
+      status === "Upvote" &&
+      isVotedAlready.status === "Upvote") ||
+    (isVotedAlready &&
+      status === "Downvote" &&
+      isVotedAlready.status === "Downvote")
+  ) {
+    return res.status(409).json("already Voted");
+  }
 
-router.get("/post/:id",async(req,res) => {
-    const id = req.params.id
-    try {
-        const post = await Posts.findOne({where:{id}})
-        res.status(200).json(post)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
+  if (
+    isVotedAlready &&
+    isVotedAlready.status === "Downvote" &&
+    status === "Upvote"
+  ) {
+    const detroyedLike = await prisma.like.delete({
+      where: { id: isVotedAlready.id },
+    });
+    const newDownVote = await prisma.like.create({
+      data: {
+        authorId: parseInt(authorId),
+        postId: parseInt(postId),
+        type: status,
+        value: status === "Upvote" ? 1 : -1,
+      },
+    });
+    return res.status(200).json(detroyedLike);
+  }
+  if (
+    isVotedAlready &&
+    isVotedAlready.status === "Upvote" &&
+    status === "Downvote"
+  ) {
+    const detroyedLike = await prisma.like.delete({
+      where: { id: isVotedAlready.id },
+    });
+    const newDownVote = await prisma.like.create({
+      data: {
+        authorId: parseInt(authorId),
+        postId: parseInt(postId),
+        type: status,
+        value: status === -1,
+      },
+    });
+    return res.status(200).json(detroyedLike);
+  }
 
+  if (
+    (!isVotedAlready && status === "Upvote") ||
+    (!isVotedAlready && status === "Downvote")
+  ) {
+    const like = await prisma.like.create({
+      data: {
+        authorId: parseInt(authorId),
+        postId: parseInt(postId),
+        type: status,
+        value: status === "Upvote" ? 1 : -1,
+      },
+    });
+    return res.status(200).json(like);
+  }
+});
 
 module.exports = router;

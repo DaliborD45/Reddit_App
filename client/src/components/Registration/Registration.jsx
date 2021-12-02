@@ -2,14 +2,14 @@ import React from "react";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 const RegistrationSchema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string()
     .required()
 
     .min(6, "Must be exactly 5 digits"),
-  username: Yup.string().required(),
+  name: Yup.string().required(),
   repetead_password: Yup.string().oneOf(
     [Yup.ref("password")],
     console.log("password does not match")
@@ -17,16 +17,17 @@ const RegistrationSchema = Yup.object({
 });
 
 const Registration = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const registerUser = async (values) => {
-    const { username, email, password, preffered_posts } = values;
+    const { name, email, password } = values;
     try {
       const res = await axios.post("http://localhost:3001/users/register", {
-        username,
+        name,
         email,
         password,
-        preffered_posts,
       });
+      navigate("/login");
+
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -36,17 +37,15 @@ const Registration = () => {
   return (
     <Formik
       initialValues={{
-        username: "",
+        name: "",
         email: "",
         password: "",
         repetead_password: "",
-        preffered_posts: "",
       }}
       validationSchema={RegistrationSchema}
       onSubmit={(values) => {
         console.log(values);
-        registerUser(values)
-        navigate("/login")
+        registerUser(values);
       }}
     >
       <div className="flex h-screen bg-gray-200 items-center justify-center  ">
@@ -83,8 +82,8 @@ const Registration = () => {
               <Field
                 className="py-2 px-3 rounded-lg border-2 border-yellow-500 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-700 focus:border-transparent"
                 type="text"
-                placeholder="type username"
-                name="username"
+                placeholder="type name"
+                name="name"
               />
             </div>
             <div className="grid grid-cols-1 mt-5 mx-7">

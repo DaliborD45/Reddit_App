@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const Postcard = ({ title, text,id }) => {
-  const navigate = useNavigate()
+import useDidMountEffect from "../../Hooks/useDidMountEffext";
+const Postcard = ({ title, text, id, postLikes }) => {
+  const [votes, setVotes] = useState(0);
+  useEffect(() => {
+    postLikes.map(({ value }) =>
+      setVotes((prevState) => prevState + parseInt(value))
+    );
+  }, [postLikes]);
+  const navigate = useNavigate();
+  const handleVote = async (status) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3001/likes",
+        { postId: id, status: status },
+        {
+          headers: {
+            authToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      if (status === "Upvote" && res.status === 200) {
+        setVotes((prevState) => prevState + 1);
+      } else if (status === "Downvote" && res.status === 200) {
+        setVotes((prevState) => prevState - 1);
+      }
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div onClick={()=>navigate(`/post/${id}`)} className="w-9/12 flex  mt-9  rounded-sm max-h-96 overflow-hidden">
+    <div className="w-9/12 flex  mt-9  rounded-sm max-h-96 overflow-hidden">
       <section className="w-1/12 bg-gray-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +41,8 @@ const Postcard = ({ title, text,id }) => {
           version="1.1"
           width="25"
           height="25"
-          className="transform -rotate-90 ml-3 mt-3"
+          onClick={() => handleVote("Upvote")}
+          className="transform -rotate-90 mx-auto mt-3"
           viewBox="0 0 256 256"
           xmlSpace="preserve"
         >
@@ -26,14 +56,15 @@ const Postcard = ({ title, text,id }) => {
             </g>
           </g>
         </svg>
-        <p className="ml-4">90</p>
+        <p className="text-center">{votes}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          onClick={() => handleVote("Downvote")}
           xmlnsXlink="http://www.w3.org/1999/xlink"
           version="1.1"
           width="25"
           height="25"
-          className="transform rotate-90 ml-3 mb-3"
+          className="transform rotate-90 mx-auto mb-3"
           viewBox="0 0 256 256"
           xmlSpace="preserve"
         >
@@ -48,7 +79,10 @@ const Postcard = ({ title, text,id }) => {
           </g>
         </svg>
       </section>
-      <section className="w-10/12 bg-gray-100">
+      <section
+        className="w-11/12 bg-gray-100"
+        onClick={() => navigate(`/post/${id}`)}
+      >
         <section className="w-11/12 ml-4 mt-2">
           <p className="text-md font-bold text-xl">{title}</p>
           <p className=" mt-3">{text}</p>

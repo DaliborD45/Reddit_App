@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Postcard from "../Postcard/Postcard";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import axios from "axios";
 import { setAllPosts } from "../../features/allPosts";
+import Communities from "./Communities/Communities";
+import AddPost from "./AddPost/AddPost";
 const Homepage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const Homepage = () => {
       try {
         const data = await axios.get("http://localhost:3001/posts");
         dispatch(setAllPosts(data.data));
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -25,13 +28,30 @@ const Homepage = () => {
 
   return (
     allPosts && (
-      <div className="bg-gray-300 w-screen h-screen">
+      <div className="bg-gray-300 overflow-x-hidden min-h-screen">
         <Navbar />
         <LoggedNavbar />
-        <section className="border border-gray-900 w-1/2 mx-auto">
-          {allPosts.map(({ title, text, id }) => {
-            return <Postcard key={id} title={title} text={text} id={id} />;
-          })}
+        <section className="w-7/12  mb-20  flex mx-auto">
+          <section className="">
+            <AddPost />
+            {allPosts
+              .map(({ title, text, id, Like }) => {
+               
+                return (
+                  <Postcard
+                    key={id}
+                    title={title}
+                    text={text}
+                    id={id}
+                    postLikes={Like}
+                  />
+                );
+              })
+              .reverse()}
+          </section>
+          <section className="">
+            <Communities />
+          </section>
         </section>
       </div>
     )

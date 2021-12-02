@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
+const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
 const JWT = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const prisma = new PrismaClient();
 
-const { Users } = require("../models/");
 router.get("/", async (req, res) => {
   res.send("test server");
 });
@@ -15,12 +16,12 @@ router.post(
   body("email").isEmail(),
   body("password").isLength({ min: 6 }),
   async (req, res) => {
-    const { username, email, password, preffered_posts } = req.body;
+    const { name, email, password } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    let isUserAlreadyRegistered = await Users.findOne({
+    let isUserAlreadyRegistered = await prisma.user.findFirst({
       where: { email: email },
     });
     if (isUserAlreadyRegistered) {
@@ -36,11 +37,12 @@ router.post(
       });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await Users.create({
-      username,
-      email,
-      password: hashedPassword,
-      preffered_posts,
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
     });
 
     res.status(200).json("user registered");
@@ -48,7 +50,7 @@ router.post(
 );
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = await Users.findOne({
+  const user = await prisma.user.findFirst({
     where: { email: email },
   });
   if (!user) {
@@ -63,8 +65,7 @@ router.post("/login", async (req, res) => {
       {
         email,
         id: user.id,
-        preffered_posts: user.preffered_posts,
-        username: user.username,
+        name: user.name,
       },
       "exkp0487k0vyhu8"
     );

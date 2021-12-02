@@ -1,16 +1,17 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const db = require("./models");
-const usersRouter = require("./routers/Users");
-const postRouter = require("./routers/Posts");
+
+const app = express();
+
 app.use(express.json());
 app.use(cors());
-app.use("/users", usersRouter);
-app.use("/posts", postRouter);
 
-db.sequelize.sync().then(() => {
-  app.listen(3001, () => {
-    console.log("Server running on port 3001");
-  });
+app.use("/users", require("./routers/Users"));
+app.use("/posts", require("./routers/Posts"));
+app.use("/community", require("./routers/Community"));
+app.use("/comments", require("./routers/Comments"));
+app.use("/likes", require("./routers/Likes"));
+
+app.listen(3001, () => {
+  console.log("Listening on port 3001");
 });

@@ -80,10 +80,11 @@ const Login = () => {
               />
             </div>
 
-            <div className="flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5">
-              <button className="w-auto bg-yellow-500 hover:bg-yellow-700 rounded-lg shadow-xl font-medium text-white px-4 py-2">
+            <div className="flex items-center justify-center  w-2/3 ml-auto  md:gap-8 gap-4 pt-5 pb-5">
+              <button className="w-auto bg-yellow-500 hover:bg-yellow-700 mr-40 rounded-lg shadow-xl font-medium text-white px-4 py-2">
                 Login
               </button>
+              <p className="hover:text-yellow-400" onClick={()=>navigate("/registration")}>Not registered yet?</p>
             </div>
           </Form>
         </div>
