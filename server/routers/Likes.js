@@ -4,27 +4,25 @@ const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
 const prisma = new PrismaClient();
 
-router.post("/", checkAuth, async (req, res) => {
+router.put("/", checkAuth, async (req, res) => {
   const authorId = req.user.id;
-  const { status, postId } = req.body;
+  const { type, postId } = req.body;
   const isVotedAlready = await prisma.like.findFirst({
     where: { authorId: parseInt(authorId), postId: parseInt(postId) },
   });
   if (
+    (isVotedAlready && type === "Upvote" && isVotedAlready.type === "Upvote") ||
     (isVotedAlready &&
-      status === "Upvote" &&
-      isVotedAlready.status === "Upvote") ||
-    (isVotedAlready &&
-      status === "Downvote" &&
-      isVotedAlready.status === "Downvote")
+      type === "Downvote" &&
+      isVotedAlready.type === "Downvote")
   ) {
-    return res.status(409).json("already Voted");
+    return res.status(200).json(0);
   }
 
   if (
     isVotedAlready &&
-    isVotedAlready.status === "Downvote" &&
-    status === "Upvote"
+    isVotedAlready.type === "Downvote" &&
+    type === "Upvote"
   ) {
     const detroyedLike = await prisma.like.delete({
       where: { id: isVotedAlready.id },
@@ -33,16 +31,16 @@ router.post("/", checkAuth, async (req, res) => {
       data: {
         authorId: parseInt(authorId),
         postId: parseInt(postId),
-        type: status,
-        value: status === "Upvote" ? 1 : -1,
+        type: type,
+        value: 1,
       },
     });
-    return res.status(200).json(detroyedLike);
+    return res.status(200).json(2);
   }
   if (
     isVotedAlready &&
-    isVotedAlready.status === "Upvote" &&
-    status === "Downvote"
+    isVotedAlready.type === "Upvote" &&
+    type === "Downvote"
   ) {
     const detroyedLike = await prisma.like.delete({
       where: { id: isVotedAlready.id },
@@ -51,26 +49,50 @@ router.post("/", checkAuth, async (req, res) => {
       data: {
         authorId: parseInt(authorId),
         postId: parseInt(postId),
-        type: status,
-        value: status === -1,
+        type,
+        value: -1,
       },
     });
-    return res.status(200).json(detroyedLike);
+    return res.status(200).json(-2);
   }
 
   if (
-    (!isVotedAlready && status === "Upvote") ||
-    (!isVotedAlready && status === "Downvote")
+    (!isVotedAlready && type === "Upvote") ||
+    (!isVotedAlready && type === "Downvote")
   ) {
     const like = await prisma.like.create({
       data: {
         authorId: parseInt(authorId),
         postId: parseInt(postId),
-        type: status,
-        value: status === "Upvote" ? 1 : -1,
+        type,
+        value: type === "Upvote" ? 1 : -1,
       },
     });
-    return res.status(200).json(like);
+    return res.status(200).json(type === "Upvote" ? 1 : -1);
+  }
+});
+
+router.delete("/deleteAll", async (req, res) => {
+  try {
+    await prisma.like.deleteMany();
+    return res.status(200).json("All votes have been removed");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.get("/getPostByid", checkAuth, async (req, res) => {
+  const { status, postId } = req.body;
+  const authorId = req.user.id;
+
+  try {
+    const post = await prisma.like.findFirst({
+      where: { authorId: parseInt(authorId), postId: parseInt(postId) },
+    });
+
+    return res.status(200).json(post.postId);
+  } catch (error) {
+    return res.status(500).json(error);
   }
 });
 

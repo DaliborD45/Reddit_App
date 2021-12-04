@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCommentDots,
+  faBell,
+  faImages,
+} from "@fortawesome/free-regular-svg-icons";
+import { faPlus, faHome, faFireAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,7 +19,7 @@ const LoggedNavbar = () => {
   const navigate = useNavigate();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
   const [communities, setCommunities] = useState([]);
-
+  const [userdata, setuserdata] = useState({});
   const UserData = useSelector((state) => state.currentUser.value);
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
@@ -33,6 +40,7 @@ const LoggedNavbar = () => {
           }
         );
         dispatch(setCurrentUser(data.data));
+        setuserdata(data.data);
         dispatch(setUserStatus());
       } catch (error) {
         console.log(error);
@@ -86,14 +94,16 @@ const LoggedNavbar = () => {
             </g>
           </svg>
         </section>
-        <section className="ml-1">
+        <section className="ml-1 pt-1 px-3 w-80 rounded-sm  text-gray-400 bg-white  mt-3">
+          <FontAwesomeIcon icon={faHome} />
+
           <select
             as="select"
-            className="py-2 px-3 w-80 rounded-sm border-1 text-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent mt-3"
+            className="ml-3 w-64 focus:border-none focus:outline-none"
             name="preffered_posts"
           >
             <option defaultValue hidden="hidden">
-              Choose a community
+              Home
             </option>
             {communities.map(({ name, id }) => {
               return <option value={id}>{`r/${name}`}</option>;
@@ -125,37 +135,12 @@ const LoggedNavbar = () => {
             </svg>
           </button>
         </section>
-        <section className="my-auto">
-          <svg
-            id="Layer_1"
-            data-name="Layer 1"
-            width="30px"
-            height="30px"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 122.88 107.09"
-          >
-            <title>chat-bubble</title>
-            <path d="M63.08,0h.07C79.93.55,95,6.51,105.75,15.74c11,9.39,17.52,22.16,17.11,36.09v0a42.67,42.67,0,0,1-7.58,22.87A55,55,0,0,1,95.78,92a73.3,73.3,0,0,1-28.52,8.68,62.16,62.16,0,0,1-27-3.63L6.72,107.09,16.28,83a49.07,49.07,0,0,1-10.91-13A40.16,40.16,0,0,1,.24,45.55a44.84,44.84,0,0,1,9.7-23A55.62,55.62,0,0,1,26.19,8.83,67,67,0,0,1,43.75,2,74.32,74.32,0,0,1,63.07,0Zm24.18,42a7.78,7.78,0,1,1-7.77,7.78,7.78,7.78,0,0,1,7.77-7.78Zm-51.39,0a7.78,7.78,0,1,1-7.78,7.78,7.79,7.79,0,0,1,7.78-7.78Zm25.69,0a7.78,7.78,0,1,1-7.77,7.78,7.78,7.78,0,0,1,7.77-7.78Zm1.4-36h-.07A68.43,68.43,0,0,0,45.14,7.85a60.9,60.9,0,0,0-16,6.22A49.65,49.65,0,0,0,14.66,26.32,38.87,38.87,0,0,0,6.24,46.19,34.21,34.21,0,0,0,10.61,67,44.17,44.17,0,0,0,21.76,79.67l1.76,1.39L16.91,97.71l23.56-7.09,1,.38a56,56,0,0,0,25.32,3.6,67,67,0,0,0,26.16-8A49,49,0,0,0,110.3,71.36a36.86,36.86,0,0,0,6.54-19.67v0c.35-12-5.41-23.1-15-31.33C92.05,11.94,78.32,6.52,63,6.06Z" />
-          </svg>
-        </section>
-        <section className="my-auto">
-          <svg
-            onClick={handleAddPost}
-            version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            className="mt-2 hover:bg-gray-300 p-1"
-            width="32px"
-            height="32px"
-            viewBox="0 0 485 485"
-            xmlSpace="preserve"
-          >
-            <polygon
-              points="485,227.5 257.5,227.5 257.5,0 227.5,0 227.5,227.5 0,227.5 0,257.5 227.5,257.5 227.5,485 257.5,485 257.5,257.5 
-	485,257.5 "
-            />
-          </svg>
+        <section className="my-auto ">
+          <FontAwesomeIcon className="mx-3" icon={faFireAlt} size="lg" />
+          <FontAwesomeIcon className="mx-3" icon={faImages} size="lg" />
+          <FontAwesomeIcon className="mx-3" icon={faCommentDots} size="lg" />
+          <FontAwesomeIcon className="mx-3" icon={faBell} size="lg" />
+          <FontAwesomeIcon className="mx-3" icon={faPlus} onClick={handleAddPost} size="lg" />
         </section>
 
         <section className="mr-5">
@@ -168,6 +153,7 @@ const LoggedNavbar = () => {
             </button>
           </div>
         </section>
+        <p>{userdata.name}</p>
       </div>
     )
   );

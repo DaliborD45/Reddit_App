@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 const Communities = () => {
   const [data, setData] = useState([]);
@@ -15,7 +16,7 @@ const Communities = () => {
     getCommunities();
   }, []);
   return (
-    <div className="bg-white w-80 h-96 border mt-8 rounded-md -ml-20">
+    <div className="bg-white w-80 h-96 border mt-8 rounded-md -ml-40">
       <section className="h-1/5 border bg-clouds-img">
         <p className="ml-5 pt-10 font-bold text-xl text-white text-shadow">
           Communities near you

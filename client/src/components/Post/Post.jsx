@@ -6,17 +6,30 @@ import CommentsField from "./CommentsField";
 import Navbar from "../Navbar/Navbar";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
+import { useDispatch } from "react-redux";
+import { setUpvote, setDownvote } from "../../features/votes";
 const Post = () => {
-  const [votes, setVotes] = useState();
-  const [postData, setData] = useState({});
+  const [votes, setVotes] = useState([]);
+  const [postData, setPostData] = useState({});
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const getVoteData = (likes, Id) => {
+    likes.map(({ type, authorId }) => {
+      if (authorId === Id) {
+        type === "Upvote"
+          ? dispatch(setUpvote(true))
+          : dispatch(setDownvote(true));
+      }
+    });
+  };
   useEffect(() => {
     const getPostData = async () => {
       try {
         const data = await axios.get(`http://localhost:3001/posts/posts/${id}`);
-        console.log(data);
-        setData(data.data);
-        setVotes(data.data.Like.length);
+        console.log(data.data.Like);
+        setPostData(data.data);
+        setVotes(data.data.Like);
+        getVoteData(data.data.Like, data.data.authorId);
       } catch (error) {
         console.log(error);
       }
@@ -36,15 +49,13 @@ const Post = () => {
             setVotes={setVotes}
             id={id}
           />
-          
+
           <section className="bg-white">
             <CommentsField PostId={id} />
           </section>
         </section>
       </section>
-      <section>
-        
-      </section>
+      <section></section>
     </div>
   );
 };
