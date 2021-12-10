@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
+const e = require("express");
 const prisma = new PrismaClient();
 
 router.put("/", checkAuth, async (req, res) => {
@@ -93,6 +94,21 @@ router.get("/getPostByid", checkAuth, async (req, res) => {
     return res.status(200).json(post.postId);
   } catch (error) {
     return res.status(500).json(error);
+  }
+});
+
+router.get("/getLikeByUserId/:id", checkAuth, async (req, res) => {
+  const authorId = req.user.id;
+  const postId = req.params.id;
+  const findedLike = await prisma.like.findFirst({
+    where: { authorId: authorId, postId: parseInt(postId) },
+  });
+  if (findedLike && findedLike.type === "Upvote") {
+    return res.status(200).json(findedLike.type);
+  } else if (findedLike && findedLike.type === "Downvote") {
+    return res.status(200).json(findedLike.type);
+  } else {
+    return res.status(200).json(0);
   }
 });
 
