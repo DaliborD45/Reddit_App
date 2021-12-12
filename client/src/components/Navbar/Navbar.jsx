@@ -1,65 +1,31 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCommentDots,
-  faBell,
-  faImages,
-  faMoneyBillAlt,
-} from "@fortawesome/free-regular-svg-icons";
-import { faPlus, faHome, faFireAlt } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUserStatus, setCurrentUser } from "../../features/currentUser";
-import Profile from "./Profile/Profile";
-const LoggedNavbar = () => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  setUserLogout,
+  setUserStatus,
+  setCurrentUser,
+} from "../../features/currentUser";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+
+const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
-  const [communities, setCommunities] = useState([]);
-  const [userdata, setuserdata] = useState({});
   const UserData = useSelector((state) => state.currentUser.value);
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
   }
 
-  useEffect(() => {
-    const getUsersData = async () => {
-      try {
-        const data = await axios.get(
-          "http://localhost:3001/users/getUserData",
-          {
-            headers: {
-              authToken: localStorage.getItem("accessToken"),
-            },
-          }
-        );
-        dispatch(setCurrentUser(data.data));
-        setuserdata(data.data);
-        dispatch(setUserStatus());
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUsersData();
-  }, [isLoggedStatus]);
   const handleReloadPage = () => {
     navigate("/");
     window.location.reload();
   };
-  const handleAddPost = () => {
-    navigate("/addPost");
-  };
-  useEffect(() => {
-    const getCommunities = async () => {
-      const data = await axios.get("http://localhost:3001/community");
-      setCommunities(data.data);
-    };
-    getCommunities();
-  }, []);
   return (
-    isLoggedStatus && (
-      <div className="w-screen h-14 bg-gray-50 flex ">
+    !isLoggedStatus && (
+      <div className="w-screen h-14 bg-gray-200 flex justify-between fixed">
         <section className="-mt-2 ml-5" onClick={handleReloadPage}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -89,28 +55,9 @@ const LoggedNavbar = () => {
             </g>
           </svg>
         </section>
-        <section className="ml-1 pt-1 px-3 w-80 rounded-sm  text-gray-400 bg-white  mt-3">
-          <FontAwesomeIcon icon={faHome} />
-
-          <select
-            as="select"
-            className="ml-3 w-64 focus:border-none focus:outline-none"
-            name="preffered_posts"
-          >
-            <option defaultValue hidden="hidden">
-              Home
-            </option>
-            {communities.map(({ name, id }) => {
-              return <option value={id}>{`r/${name}`}</option>;
-            })}
-            <option value="Sport">r/dunkmemes</option>
-
-            <option value="Memes">r/HistoryHomies</option>
-          </select>
-        </section>
-        <section className=" relative  text-gray-600 w-2/5 ml-3 my-auto">
+        <section className=" relative  text-gray-600 w-2/5">
           <input
-            className="w-full border-2 mt-2 border-gray-300 bg-white h-10  rounded-lg text-sm focus:outline-none pl-5"
+            className="w-full border-2 mt-2 border-gray-300 bg-white h-10 pl-2  rounded-lg text-sm focus:outline-none"
             type="search"
             name="search"
             placeholder="Search Reddit"
@@ -130,30 +77,23 @@ const LoggedNavbar = () => {
             </svg>
           </button>
         </section>
-        <section className="my-auto ml-5 ">
-          <FontAwesomeIcon className="mx-3" icon={faFireAlt} size="lg" />
-          <FontAwesomeIcon className="mx-3" icon={faImages} size="lg" />
-          <FontAwesomeIcon className="mx-3" icon={faCommentDots} size="lg" />
-          <FontAwesomeIcon className="mx-3" icon={faBell} size="lg" />
-          <FontAwesomeIcon
-            className="mx-3"
-            icon={faPlus}
-            onClick={handleAddPost}
-            size="lg"
-          />
-        </section>
-        <section className="my-auto ml-2">
-          <div className="w-20 bg-yellow-300 h-10 rounded-full flex hover:opacity-90">
-            <FontAwesomeIcon icon={faMoneyBillAlt} className="mt-3 ml-2" size="md"/>
-            <p className="pt-1.5 pl-1 ">Free</p>
-          </div>
-        </section>
-        <section className="ml-2 my-auto">
-          <Profile username={userdata.name} />
+        <section className="mr-5">
+          <button
+            className="w-32 py-2 font-bold rounded-full mt-2 border border-blue-500 text-blue-500 hover:bg-blue-100"
+            onClick={() => navigate("/login")}
+          >
+            Log in
+          </button>
+          <button
+            className="bg-blue-500 w-32 py-2 font-bold rounded-full mt-2 border border-blue-500 text-white ml-7 hover:bg-blue-600"
+            onClick={() => navigate("/registration")}
+          >
+            Sign Up
+          </button>
         </section>
       </div>
     )
   );
 };
 
-export default LoggedNavbar;
+export default Navbar;

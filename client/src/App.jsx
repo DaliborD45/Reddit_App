@@ -23,9 +23,3 @@ const App = () => {
 
 export default App;
 
-// extend: {
-//   backgroundImage: {
-//     "clouds-img":
-//       "url('https://www.macmillandictionaryblog.com/wp-content/uploads/2018/04/cloud--810x528.jpg')",
-//   },
-// },

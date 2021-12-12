@@ -24,7 +24,7 @@ const Communities = () => {
       </section>
       <section className="w-full h-4/5 border ">
         <section className="mt-2 ">
-          {data.map(({ name, id }) => {
+          {data.slice(0, 5).map(({ name, id }) => {
             return (
               <div className="w-full border-b border-gray-200 last:border-0">
                 <div className="flex  w-10/12 text-md  mx-auto py-2 font-semibold">

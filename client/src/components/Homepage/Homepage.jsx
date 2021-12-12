@@ -11,9 +11,13 @@ import Communities from "./Communities/Communities";
 import AddPost from "./AddPost/AddPost";
 import TryPremium from "./TryPremium/TryPremium";
 import Home from "./Home/Home";
+
+import About from "./About/About";
+import CreateCommunityModal from "../CreateCommunityModal/CreateCommunityModal";
 const Homepage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isCommunityModalOpen = useSelector((state) => state.modal.isOpen);
   const allPosts = useSelector((state) => state.allPosts.value);
   useEffect(() => {
     const getAllPosts = async () => {
@@ -30,10 +34,11 @@ const Homepage = () => {
 
   return (
     allPosts && (
-      <div className="bg-gray-300 overflow-x-hidden min-h-screen">
+      <div className="bg-gray-300 overflow-x-hidden  min-h-screen ">
         <Navbar />
         <LoggedNavbar />
-        <section className="w-7/12  mb-20  flex mx-auto">
+        <CreateCommunityModal />
+        <section className="w-7/12  mb-20  flex mx-auto mt-10">
           <section className="">
             <AddPost />
             {allPosts
@@ -54,6 +59,7 @@ const Homepage = () => {
             <Communities />
             <TryPremium />
             <Home />
+            <About />
           </section>
         </section>
       </div>
