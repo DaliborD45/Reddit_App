@@ -1,0 +1,79 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { Field, Form, Formik } from "formik";
+const Image = ({ title, setTitle, image, setImage, tags }) => {
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+
+  const handleTitleInput = (e) => {
+    setCount(e.target.value.length);
+    setTitle(e.target.value);
+  };
+
+  return (
+    <>
+      <section className=" flex-row w-11/12 mx-auto  rounded-md mt-4  ">
+        <textarea
+          type="text"
+          rows="2"
+          placeholder="Title"
+          className="w-full mx-auto  pl-3 py-2 focus:border-none focus:outline-none break-word"
+          onChange={(e) => handleTitleInput(e)}
+          name="title"
+        />
+
+        <section className="mt-5 mb-20">
+          <input
+            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            onChange={(event) => setImage(event.target.files[0])}
+            type="file"
+          ></input>
+        </section>
+      </section>
+      <section className="flex  w-11/12 mx-auto">
+        {tags.map(({ name, titles }) => {
+          return (
+            <button
+              title={titles}
+              className=" py-1 rounded-full text-gray-400 font-bold px-4  border border-gray-400 flex mr-2 hover:bg-gray-100"
+            >
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                className="mt-1 mr-2"
+                width="16px"
+                height="16px"
+                viewBox="0 0 485 485"
+                xmlSpace="preserve"
+              >
+                <polygon
+                  points="485,227.5 257.5,227.5 257.5,0 227.5,0 227.5,227.5 0,227.5 0,257.5 227.5,257.5 227.5,485 257.5,485 257.5,257.5 
+	485,257.5 "
+                />
+              </svg>
+              {name}
+            </button>
+          );
+        })}
+      </section>
+      <section className="flex ml-auto mr-8 mb-5">
+        <button
+          type="button"
+          className="px-5 py-2 text-gray-400 font-bold border border-gray-500 rounded-full mr-5 hover:bg-gray-200"
+        >
+          SAVE DRAFT
+        </button>
+        <button
+          type="submit"
+          className=" py-1 bg-gray-500 rounded-full text-gray-400 font-bold w-24 hover:bg-gray-600"
+        >
+          POST
+        </button>
+      </section>
+    </>
+  );
+};
+
+export default Image;

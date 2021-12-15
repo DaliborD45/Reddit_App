@@ -10,6 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Community {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  type         String
+  adultContent Boolean  @default(false)
+  users        User[]
+  Post         Post[]
+}
+
 model User {
   id          Int        @id @default(autoincrement())
   email       String     @unique
@@ -22,16 +33,20 @@ model User {
 }
 
 model Post {
-  id         Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  title      String    @db.VarChar(255)
-  content    String?
-  author     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId   Int
-  authorName String
-  Like       Like[]
-  Comment    Comment[]
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String    @db.VarChar(255)
+  content     String?
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    Int
+  authorName  String
+  imageId     String?
+  Like        Like[]
+  Comment     Comment[]
+  Community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  communityId Int
+
 }
 
 model Comment {
@@ -52,16 +67,6 @@ model Like {
   authorId  Int
   type      String
   value     Int
-  author    User     @relation(fields: [authorId], references: [id])
-  post      Post     @relation(fields: [postId], references: [id])
-}
-
-model Community {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  name         String
-  type         String
-  adultContent Boolean  @default(false)
-  users        User[]
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

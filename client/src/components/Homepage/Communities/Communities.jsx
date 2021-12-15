@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Communities = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState([]);
   useEffect(() => {
     const getCommunities = async () => {
@@ -29,7 +30,7 @@ const Communities = () => {
               <div className="w-full border-b border-gray-200 last:border-0">
                 <div className="flex  w-10/12 text-md  mx-auto py-2 font-semibold">
                   <label>{id}</label>
-                  <p className="ml-5">{name}</p>
+                  <p className="ml-5 hover:text-blue-500" onClick={()=>navigate("/")}>{`r/${name}`}</p>
                 </div>
               </div>
             );

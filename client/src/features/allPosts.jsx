@@ -10,7 +10,8 @@ const allPosts = createSlice({
     },
     addPost:(state, action) => {
         state.value.push(action.payload);
-    }
+    },
+    
   },
 });
 export const { setAllPosts,addPost} = allPosts.actions;

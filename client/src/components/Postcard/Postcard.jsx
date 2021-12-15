@@ -10,12 +10,22 @@ import {
   faArrowAltCircleUp as arrowUpSolid,
   faArrowAltCircleDown as arrowDownSolid,
 } from "@fortawesome/free-solid-svg-icons";
-import useDidMountEffect from "../../Hooks/useDidMountEffext";
-import { setUpvote, setDownvote } from "../../features/votes";
+import { Image as ShowImage, Video } from "cloudinary-react";
+import DeleteButton from "./DeleteButton";
 import { useSelector, useDispatch } from "react-redux";
-const Postcard = ({ title, text, id, postLikes }) => {
+const Postcard = ({
+  title,
+  text,
+  id,
+  postLikes,
+  imageId,
+  communityId,
+  PostAuthorId,
+  authorName,
+}) => {
   const dispatch = useDispatch();
   const [votes, setVotes] = useState(0);
+  const [community, setCommunity] = useState({ name: "" });
   const upvotes = useSelector((state) => state.votes.Upvoted);
   const downvotes = useSelector((state) => state.votes.Downvoted);
   const [manageUpvote, setManageVote] = useState({
@@ -25,6 +35,20 @@ const Postcard = ({ title, text, id, postLikes }) => {
   if (!upvotes) {
     console.log(upvotes);
   }
+  useEffect(() => {
+    const getCommunityById = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/community/byId/${communityId}`
+        );
+        console.log(res);
+        setCommunity(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCommunityById();
+  }, []);
   useEffect(() => {
     postLikes.map(({ value }) =>
       setVotes((prevState) => prevState + parseInt(value))
@@ -81,7 +105,7 @@ const Postcard = ({ title, text, id, postLikes }) => {
   };
 
   return (
-    <div className="w-9/12 flex  mt-9  rounded-sm max-h-96 overflow-hidden">
+    <div className="w-9/12 flex  mt-9  rounded-sm  overflow-hidden border border-gray-400">
       <section className="w-1/12 bg-gray-200 flex flex-col">
         <FontAwesomeIcon
           icon={manageUpvote.isUpvoted ? arrowUpSolid : arrowUpRegular}
@@ -98,13 +122,26 @@ const Postcard = ({ title, text, id, postLikes }) => {
           onClick={() => handleVote("Downvote")}
         />
       </section>
-      <section
-        className="w-11/12 bg-gray-100"
-        onClick={() => navigate(`/post/${id}`)}
-      >
-        <section className="w-11/12 ml-4 mt-2">
-          <p className="text-md font-bold text-xl">{title}</p>
-          <p className=" mt-3">{text}</p>
+      <section className="w-11/12 bg-gray-100">
+        <section className="text-xs flex pt-2 pl-2">
+          <p className="font-bold ">{`r/${community.name}`}</p>
+          <p className="pl-2 text-gray-400">{`Posted by u/${authorName}`}</p>
+          <DeleteButton PostAuthorId={PostAuthorId} PostId={id} />
+        </section>
+        <section onClick={() => navigate(`/post/${id}`)}>
+          <section className="w-11/12 ml-4 mt-2">
+            <p className="text-md font-bold text-xl">{title}</p>
+            <p className=" mt-3">{text}</p>
+          </section>
+          {imageId !== null && (
+            <section className="w-full">
+              <ShowImage
+                cloudName="dqhkvx2z5"
+                publicId={imageId}
+                className="max-w-full max-h-full mx-auto"
+              />
+            </section>
+          )}
         </section>
       </section>
     </div>

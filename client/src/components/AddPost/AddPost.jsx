@@ -1,36 +1,79 @@
 import React, { useEffect, useState } from "react";
 import { Field, Form, Formik } from "formik";
-import * as Yup from "yup";
+import * as yup from "yup";
 import axios from "axios";
+import Post from "./Posts/Post";
+import Image from "./Image/Image";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addPost } from "../../features/allPosts";
 import Navbar from "../Navbar/Navbar";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
+import ProcessingBtn from "./ProcessingBtn";
+
+let addPostSchema = yup.object().shape({
+  communityId: yup
+    .number("Community is required")
+    .required("Community is required"),
+});
+
 const AddPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [communities, setCommunities] = useState([]);
-  const [count, setCount] = useState(0);
   const [title, setTitle] = useState("");
+  const [image, setImage] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const [postMethod, setPostMethod] = useState(1);
+  const handleUploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "Reddit");
+    // formData.append("api_key", signData.apikey);
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dqhkvx2z5/auto/upload",
+      formData
+    );
+    console.log(res);
+    console.log(res.data.public_id);
+    return res.data.public_id;
+  };
   const handleAddPost = async (values) => {
-    const { content } = values;
+    const { content, communityId } = values;
+
+    setLoading(true);
+    if (image !== null) {
+      var imageIdString = await handleUploadImage();
+    }
     try {
       const post = await axios.post(
         "http://localhost:3001/posts/addPost",
-        { title, content },
+        {
+          title,
+          content,
+          imageId: imageIdString ? imageIdString : null,
+          communityId: parseInt(communityId),
+        },
         {
           headers: {
             authToken: localStorage.getItem("accessToken"),
           },
         }
       );
-      dispatch(addPost(post));
       navigate("/");
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
+  const clickedPostMethodHandler = (id) => setPostMethod(id);
+  const navLinks = [
+    { id: 1, name: "Post", icon: "" },
+    { id: 2, name: "Images & Video", icon: "" },
+    { id: 3, name: "Link", icon: "" },
+    { id: 4, name: "Poll", icon: "" },
+  ];
   const tags = [
     { id: 1, title: "original content tag", name: "OC" },
     { id: 2, title: "spoiler content", name: "SPOILER" },
@@ -45,110 +88,77 @@ const AddPost = () => {
     getCommunities();
   }, []);
 
-  const handleTitleInput = (e) => {
-    setCount(e.target.value.length);
-    setTitle(e.target.value);
-  };
-
   return (
-    <div className="w-screen h-screen bg-gray-300">
+    <>
       <Navbar />
       <LoggedNavbar />
-      <section className="w-5/12 mx-auto mt-10">
-        <h1 className="font-semibold text-lg pb-3  border-b-2">
-          Create a post
-        </h1>
-        <Formik
-          initialValues={{
-            content: "",
-          }}
-          onSubmit={(values) => {
-            handleAddPost(values);
-          }}
-        >
-          <Form>
-            <Field
-              as="select"
-              className="py-2 px-3 w-80 rounded-sm border-1 text-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent mt-3"
-              name="preffered_posts"
-            >
-              <option defaultValue hidden="hidden">
-                Choose a community
-              </option>
-              {communities.map(({ name, id }) => {
-                return <option key={id} value={id}>{`r/${name}`}</option>;
-              })}
-              <option value="Sport">r/dunkmemes</option>
+      <div className="w-screen h-screen bg-gray-300">
+        <section className="w-5/12 mx-auto pt-40">
+          <h1 className="font-semibold text-lg pb-3  border-b-2">
+            Create a post
+          </h1>
+          {isLoading && <ProcessingBtn />}
+          <Formik
+            initialValues={{
+              content: "",
+              communityId: null,
+            }}
+            validationSchema={addPostSchema}
+            onSubmit={(values) => {
+              handleAddPost(values);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <Field
+                  as="select"
+                  className="py-2 px-3 w-80 rounded-sm border-1 text-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent mt-3"
+                  name="communityId"
+                >
+                  <option defaultValue hidden="hidden">
+                    Choose a community
+                  </option>
+                  {communities.map(({ name, id }) => {
+                    return <option key={id} value={id}>{`r/${name}`}</option>;
+                  })}
+                </Field>
+                {errors.communityId && touched.communityId ? (
+                  <div className="text-red-500 text-xs font-bold pl-2 pt-2">Community is required</div>
+                ) : null}
 
-              <option value="Memes">r/HistoryHomies</option>
-            </Field>
-            <div className=" bg-white h-1/2 mt-2 rounded-md flex flex-col w-full ">
-              <section className="flex flex-row w-11/12 mx-auto  rounded-md mt-4 border border-gray-200 ">
-                <textarea
-                  type="text"
-                  rows="2"
-                  placeholder="Title"
-                  className="w-10/12 mx-auto  pl-3 py-2 focus:border-none focus:outline-none break-word"
-                  onChange={handleTitleInput}
-                  name="title"
-                />
-                {/* <p className="absolute top-48 mt-7 left-3/4 -ml-44  text-md">{`${count}/300`}</p> */}
-                <p className={`w-2/12 text-md h-full my-auto pl-8   ${count>300?"text-red-500":"text-green-500"}`}>{`${count}/300`}</p>
-              </section>
-              <Field
-                as="textarea"
-                className="form-textarea  block w-11/12 mx-auto border border-gray-200 focus:border-black outline-none focus:border-2 mt-2 rounded-md pl-3 pt-2 mb-10"
-                rows="5"
-                name="content"
-                placeholder="Text (optional)"
-              />
-              <section className="flex  w-11/12 mx-auto">
-                {tags.map(({ name, title }) => {
-                  return (
-                    <button
+                <div className=" bg-white h-1/2 mt-7 rounded-md flex flex-col w-full ">
+                  <ul className="w-full h-14 border flex">
+                    {navLinks.map(({ id, name, icon }) => {
+                      return (
+                        <li
+                          key={id}
+                          onClick={() => clickedPostMethodHandler(id)}
+                          className="border border-r w-1/4 text-center h-full pt-3 hover:bg-gray-100"
+                        >
+                          {name}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {postMethod === 1 && (
+                    <Post title={title} setTitle={setTitle} tags={tags} />
+                  )}
+                  {postMethod === 2 && (
+                    <Image
                       title={title}
-                      className=" py-1 rounded-full text-gray-400 font-bold px-4  border border-gray-400 flex mr-2 hover:bg-gray-100"
-                    >
-                      <svg
-                        version="1.1"
-                        id="Layer_1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                        className="mt-1 mr-2"
-                        width="16px"
-                        height="16px"
-                        viewBox="0 0 485 485"
-                        xmlSpace="preserve"
-                      >
-                        <polygon
-                          points="485,227.5 257.5,227.5 257.5,0 227.5,0 227.5,227.5 0,227.5 0,257.5 227.5,257.5 227.5,485 257.5,485 257.5,257.5 
-	485,257.5 "
-                        />
-                      </svg>
-                      {name}
-                    </button>
-                  );
-                })}
-              </section>
-              <section className="flex ml-auto mr-8 mb-5">
-                <button
-                  type="button"
-                  className="px-5 py-2 text-gray-400 font-bold border border-gray-500 rounded-full mr-5 hover:bg-gray-200"
-                >
-                  SAVE DRAFT
-                </button>
-                <button
-                  type="submit"
-                  className=" py-1 bg-gray-500 rounded-full text-gray-400 font-bold w-24 hover:bg-gray-600"
-                >
-                  POST
-                </button>
-              </section>
-            </div>
-          </Form>
-        </Formik>
-      </section>
-    </div>
+                      tags={tags}
+                      image={image}
+                      setTitle={setTitle}
+                      setImage={setImage}
+                    />
+                  )}
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </section>
+      </div>
+    </>
   );
 };
 

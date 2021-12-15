@@ -7,6 +7,7 @@ import {
   faImages,
   faMoneyBillAlt,
 } from "@fortawesome/free-regular-svg-icons";
+import Dropdown from "./Dropdown/Dropdown";
 import { faPlus, faHome, faFireAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +17,7 @@ const LoggedNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
-  const [communities, setCommunities] = useState([]);
-  const [userdata, setuserdata] = useState({});
+  const [userdata, setUserData] = useState({});
   const UserData = useSelector((state) => state.currentUser.value);
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
@@ -35,7 +35,7 @@ const LoggedNavbar = () => {
           }
         );
         dispatch(setCurrentUser(data.data));
-        setuserdata(data.data);
+        setUserData(data.data);
         dispatch(setUserStatus());
       } catch (error) {
         console.log(error);
@@ -50,13 +50,7 @@ const LoggedNavbar = () => {
   const handleAddPost = () => {
     navigate("/addPost");
   };
-  useEffect(() => {
-    const getCommunities = async () => {
-      const data = await axios.get("http://localhost:3001/community");
-      setCommunities(data.data);
-    };
-    getCommunities();
-  }, []);
+ 
   return (
     isLoggedStatus && (
       <div className="w-screen h-14 bg-gray-50 flex fixed">
@@ -89,24 +83,8 @@ const LoggedNavbar = () => {
             </g>
           </svg>
         </section>
-        <section className="ml-1   w-80 rounded-sm  text-gray-400 bg-white  mt-3">
-          <FontAwesomeIcon icon={faHome} />
-
-          <select
-            as="select"
-            className="ml-3 w-64 focus:border-none focus:outline-none h-8"
-            name="preffered_posts"
-          >
-            <option defaultValue hidden="hidden">
-              Home
-            </option>
-            {communities.map(({ name, id }) => {
-              return <option value={id}>{`r/${name}`}</option>;
-            })}
-            <option value="Sport">r/dunkmemes</option>
-
-            <option value="Memes">r/HistoryHomies</option>
-          </select>
+        <section>
+          <Dropdown />
         </section>
         <section className=" relative  text-gray-600 w-2/5 ml-3 my-auto">
           <input
@@ -130,6 +108,7 @@ const LoggedNavbar = () => {
             </svg>
           </button>
         </section>
+     
         <section className="my-auto ml-5 ">
           <FontAwesomeIcon className="mx-3" icon={faFireAlt} size="lg" />
           <FontAwesomeIcon className="mx-3" icon={faImages} size="lg" />
@@ -144,7 +123,11 @@ const LoggedNavbar = () => {
         </section>
         <section className="my-auto ml-2">
           <div className="w-20 bg-yellow-300 h-10 rounded-full flex hover:opacity-90">
-            <FontAwesomeIcon icon={faMoneyBillAlt} className="mt-3 ml-2" size="md"/>
+            <FontAwesomeIcon
+              icon={faMoneyBillAlt}
+              className="mt-3 ml-2"
+              size="md"
+            />
             <p className="pt-1.5 pl-1 ">Free</p>
           </div>
         </section>

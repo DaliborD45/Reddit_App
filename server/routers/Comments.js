@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 router.get("/", async (req, res) => {
   try {
-    const allComments = await prisma.comment.findAll({});
+    const allComments = await prisma.comment.findMany({});
     return res.status(200).json(allComments);
   } catch (error) {
     return res.status(500).json(error);

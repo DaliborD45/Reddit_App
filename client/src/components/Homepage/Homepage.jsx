@@ -24,7 +24,7 @@ const Homepage = () => {
       try {
         const data = await axios.get("http://localhost:3001/posts");
         dispatch(setAllPosts(data.data));
-        console.log(data);
+        console.info(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -39,20 +39,35 @@ const Homepage = () => {
         <LoggedNavbar />
         <CreateCommunityModal />
         <section className="w-7/12  mb-20  flex mx-auto mt-10">
-          <section className="">
+          <section className="w-full">
             <AddPost />
             {allPosts
-              .map(({ title, text, id, Like }) => {
-                return (
-                  <Postcard
-                    key={id}
-                    title={title}
-                    text={text}
-                    id={id}
-                    postLikes={Like}
-                  />
-                );
-              })
+              .map(
+                ({
+                  title,
+                  text,
+                  id,
+                  Like,
+                  imageId,
+                  communityId,
+                  authorName,
+                  authorId,
+                }) => {
+                  return (
+                    <Postcard
+                      key={id}
+                      title={title}
+                      text={text}
+                      id={id}
+                      postLikes={Like}
+                      imageId={imageId}
+                      communityId={communityId}
+                      authorName={authorName}
+                      PostAuthorId={authorId}
+                    />
+                  );
+                }
+              )
               .reverse()}
           </section>
           <section>

@@ -29,4 +29,26 @@ router.post("/createCommunity", checkAuth, async (req, res) => {
     }
   }
 });
+
+router.get("/", async (req, res) => {
+  try {
+    const allCommunities = await prisma.community.findMany({
+      include: { Post: true },
+    });
+    return res.status(200).json(allCommunities);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+router.get("/byId/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const finded = await prisma.community.findFirst({
+      where: { id: parseInt(id) },
+    });
+    return res.status(200).json(finded);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
 module.exports = router;

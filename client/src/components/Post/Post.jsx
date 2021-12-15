@@ -38,25 +38,27 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="w-screen min-h-screen bg-gray-700">
+    <>
       <Navbar />
       <LoggedNavbar />
-      <section className="w-2/3 min-h-screen h-full bg-gray-300 mx-auto mt-10">
-        <section className="w-3/5 ml-32 pt-10 min-h-screen h-full ">
-          <Comment
-            postData={postData}
-            votes={votes}
-            setVotes={setVotes}
-            id={id}
-          />
+      <div className="w-screen min-h-screen bg-gray-700 pt-10">
+        <section className="w-2/3 min-h-screen h-full bg-gray-300 mx-auto ">
+          <section className="w-3/5 ml-32 pt-10 min-h-screen h-full ">
+            <Comment
+              postData={postData}
+              votes={votes}
+              setVotes={setVotes}
+              id={id}
+            />
 
-          <section className="bg-white">
-            <CommentsField PostId={id} />
+            <section className="bg-white">
+              <CommentsField PostId={id} />
+            </section>
           </section>
         </section>
-      </section>
-      <section></section>
-    </div>
+        <section></section>
+      </div>
+    </>
   );
 };
 
