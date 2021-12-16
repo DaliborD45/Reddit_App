@@ -39,6 +39,19 @@ router.get("/posts/:id", async (req, res) => {
   }
 });
 
+router.get("/byCommunityId/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const posts = await prisma.post.findMany({
+      where: { communityId: parseInt(id) },
+      include: { Like: true },
+    });
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.delete("/deletePost/:id", checkAuth, async (req, res) => {
   const id = req.params.id;
   try {

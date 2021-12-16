@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-
+import { addCommunities } from "../../features/communities";
 import { faUser, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setCloseModal } from "../../features/modal";
@@ -32,6 +32,7 @@ const CreateCommunityModal = () => {
       );
       dispatch(setCloseModal());
       console.log(res);
+      dispatch(addCommunities(res.data));
     } catch (error) {
       console.error(error.response.data);
       setErrorMessage(error.response.data);

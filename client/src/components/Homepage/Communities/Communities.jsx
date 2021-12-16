@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setAllCommunities } from "../../../features/communities";
 const Communities = () => {
-  const navigate = useNavigate()
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const allCommunities = useSelector((state) => state.allCommunities.value);
+
+  const navigate = useNavigate();
   useEffect(() => {
     const getCommunities = async () => {
       try {
-        const allComms = await axios.get("http://localhost:3001/community");
-        setData(allComms.data);
-        console.log(allComms);
+        const res = await axios.get("http://localhost:3001/community");
+        dispatch(setAllCommunities(res.data));
+        console.log(res);
       } catch (error) {
         console.error(error);
       }
@@ -25,12 +29,15 @@ const Communities = () => {
       </section>
       <section className="w-full h-4/5 border ">
         <section className="mt-2 ">
-          {data.slice(0, 5).map(({ name, id }) => {
+          {allCommunities.slice(0, 5).map(({ name, id }) => {
             return (
               <div className="w-full border-b border-gray-200 last:border-0">
                 <div className="flex  w-10/12 text-md  mx-auto py-2 font-semibold">
                   <label>{id}</label>
-                  <p className="ml-5 hover:text-blue-500" onClick={()=>navigate("/")}>{`r/${name}`}</p>
+                  <p
+                    className="ml-5 hover:text-blue-500"
+                    onClick={() => navigate(`community/${id}`)}
+                  >{`r/${name}`}</p>
                 </div>
               </div>
             );

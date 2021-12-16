@@ -106,7 +106,7 @@ const Postcard = ({
 
   return (
     <div className="w-9/12 flex  mt-9  rounded-sm  overflow-hidden border border-gray-400">
-      <section className="w-1/12 bg-gray-200 flex flex-col">
+      <section className="w-1/12 bg-gray-200 flex flex-col pt-2">
         <FontAwesomeIcon
           icon={manageUpvote.isUpvoted ? arrowUpSolid : arrowUpRegular}
           size="2x"
@@ -138,7 +138,7 @@ const Postcard = ({
               <ShowImage
                 cloudName="dqhkvx2z5"
                 publicId={imageId}
-                className="max-w-full max-h-full mx-auto"
+                className="max-w-full max-h-full mx-auto "
               />
             </section>
           )}
