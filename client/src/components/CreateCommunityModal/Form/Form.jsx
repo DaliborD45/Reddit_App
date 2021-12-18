@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Field, Form as FormikForm } from "formik";
-import { setCloseModal } from "../../features/modal";
+import { setCloseModal } from "../../../features/modal";
 import { useDispatch } from "react-redux";
 import AdultCheck from "./AdultCheck/AdultCheck";
 import NameInput from "./NameInput/NameInput";

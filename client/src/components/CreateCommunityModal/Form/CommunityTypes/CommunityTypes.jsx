@@ -1,13 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { communityTypes } from "../CommunityTypes/CommunityTypes";
+import { CommunityList } from "./CommunityList/CommunityList";
 import { Field } from "formik";
 
 const CommunityTypes = () => {
   return (
     <fieldset>
       <p className="font-semibold mb-3 ml-1">Community type</p>
-      {communityTypes.map(({ label, span, icon }) => {
+      {CommunityList.map(({ label, span, icon }) => {
         return (
           <div className="flex items-center mb-4">
             <section className="flex">

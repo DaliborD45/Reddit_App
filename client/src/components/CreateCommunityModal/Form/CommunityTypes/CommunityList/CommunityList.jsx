@@ -1,6 +1,6 @@
 import { faUser, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 
-export const communityTypes = [
+export const CommunityList = [
   {
     icon: faUser,
     label: "Public",
