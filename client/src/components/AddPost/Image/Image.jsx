@@ -1,27 +1,22 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Field, Form, Formik } from "formik";
-const Image = ({ title, setTitle, image, setImage, tags }) => {
-  const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0);
-
+import React from "react";
+const Image = ({ setTitle, setImage, tags }) => {
   const handleTitleInput = (e) => {
-    setCount(e.target.value.length);
     setTitle(e.target.value);
   };
 
   return (
     <>
       <section className=" flex-row w-11/12 mx-auto  rounded-md mt-4  ">
-        <textarea
-          type="text"
-          rows="2"
-          placeholder="Title"
-          className="w-full mx-auto  pl-3 py-2 focus:border-none focus:outline-none break-word"
-          onChange={(e) => handleTitleInput(e)}
-          name="title"
-        />
-
+        <section className="flex">
+          <textarea
+            type="text"
+            rows="2"
+            placeholder="Title"
+            className="w-full mx-auto pr-8 py-2  focus:resize-none focus focus:border-none focus:outline-none break-word"
+            onChange={(e) => handleTitleInput(e)}
+            name="title"
+          />
+        </section>
         <section className="mt-5 mb-20">
           <input
             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"

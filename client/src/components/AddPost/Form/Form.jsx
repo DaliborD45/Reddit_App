@@ -89,12 +89,7 @@ const Form = ({ setLoading, communities }) => {
             </div>
           ) : null}
 
-          <MainForm
-            title={title}
-            setTitle={setTitle}
-            image={image}
-            setImage={setImage}
-          />
+          <MainForm setTitle={setTitle} setImage={setImage} />
         </FormikForm>
       )}
     </Formik>

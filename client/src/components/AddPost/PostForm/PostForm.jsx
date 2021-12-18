@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Field } from "formik";
 
-const PostForm = ({ title, setTitle, tags }) => {
-  const [count, setCount] = useState(0);
+const PostForm = ({ setTitle, tags }) => {
   const handleTitleInput = (e) => {
-    setCount(e.target.value.length);
     setTitle(e.target.value);
   };
 
