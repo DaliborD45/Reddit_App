@@ -6,13 +6,7 @@ import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import About from "../Homepage/About/About";
 import AddPost from "../Homepage/AddPost/AddPost";
 import Postcard from "../Postcard/Postcard";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilteredPosts } from "../../features/allPosts";
 const Community = () => {
-  const dispatch = useDispatch();
-  const filteredPosts = useSelector(
-    (state) => state.allPosts.filteredPostValue
-  );
   const { id } = useParams();
   const [allPosts, setAllPosts] = useState([]);
   const [communityData, setCommunityData] = useState({});
@@ -23,8 +17,7 @@ const Community = () => {
           `http://localhost:3001/posts/byCommunityId/${id}`
         );
         console.info(res.data);
-        dispatch(setFilteredPosts(res.data));
-        console.log(filteredPosts);
+        setAllPosts(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -59,7 +52,7 @@ const Community = () => {
           <section className="w-7/12  mb-20  flex mx-auto mt-6">
             <section className="w-full">
               <AddPost />
-              {filteredPosts.map((attribute) => {
+              {allPosts.map((attribute) => {
                 return (
                   <Postcard
                     key={attribute.id}
