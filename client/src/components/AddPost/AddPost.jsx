@@ -3,7 +3,7 @@ import axios from "axios";
 import Form from "./Form/Form";
 import Navbar from "../Navbar/Navbar";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
-import ProcessingBtn from "./ProcessingBtn/ProcessingBtn";
+import ProcessingBtn from "./SkeletonScreen/SkeletonScreen";
 
 const AddPost = () => {
   const [communities, setCommunities] = useState([]);
@@ -26,8 +26,11 @@ const AddPost = () => {
           <h1 className="font-semibold text-lg pb-3  border-b-2">
             Create a post
           </h1>
-          {isLoading && <ProcessingBtn />}
-          <Form setLoading={setLoading} communities={communities} />
+          {isLoading ? (
+            <ProcessingBtn />
+          ) : (
+            <Form setLoading={setLoading} communities={communities} />
+          )}
         </section>
       </div>
     </>

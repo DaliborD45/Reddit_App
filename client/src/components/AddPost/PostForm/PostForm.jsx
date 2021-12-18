@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Field, Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { addPost } from "../../../features/allPosts";
-import { useNavigate } from "react-router-dom";
+import { Field } from "formik";
 
-const Post = ({ title, setTitle, tags }) => {
+const PostForm = ({ title, setTitle, tags }) => {
   const [count, setCount] = useState(0);
   const handleTitleInput = (e) => {
     setCount(e.target.value.length);
@@ -77,4 +73,4 @@ const Post = ({ title, setTitle, tags }) => {
   );
 };
 
-export default Post;
+export default PostForm;

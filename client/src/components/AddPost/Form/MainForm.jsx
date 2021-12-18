@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "../Image/Image";
-import Post from "../Posts/Post";
+import PostForm from "../PostForm/PostForm";
 import { tags } from "./Tags";
 import { navLinks } from "./NavLinks";
 
@@ -24,7 +24,7 @@ const MainForm = ({ title, setTitle, image, setImage }) => {
         })}
       </ul>
       {postMethod === 1 && (
-        <Post title={title} setTitle={setTitle} tags={tags} />
+        <PostForm title={title} setTitle={setTitle} tags={tags} />
       )}
       {postMethod === 2 && (
         <Image

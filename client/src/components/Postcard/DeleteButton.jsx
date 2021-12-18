@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
-import Post from "../AddPost/Posts/Post";
+import PostForm from "../AddPost/PostForm/PostForm";
 
 const DeleteButton = ({ PostAuthorId, PostId }) => {
   const [isOpen, setOpen] = useState(false);
