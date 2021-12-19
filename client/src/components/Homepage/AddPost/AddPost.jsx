@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import React from "react";
+import { useNavigate } from "react-router-dom";
 const AddPost = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className="h-16  mt-8 rounded-sm  w-9/12 bg-gray-50 flex" onClick={()=>navigate("/addPost")}>
+    <div
+      className="h-16  mt-8 rounded-sm  w-9/12 bg-gray-50 flex"
+      onClick={() => navigate("/addPost")}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="42"
@@ -16,7 +19,6 @@ const AddPost = () => {
       <input
         className="h-3/5 bg-gray-200 rounded-sm my-auto w-8/12 ml-4 p-3 "
         placeholder="Create Post"
-        
       />
       <svg
         xmlns="http://www.w3.org/2000/svg"

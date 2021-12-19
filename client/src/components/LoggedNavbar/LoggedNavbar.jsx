@@ -13,7 +13,6 @@ const LoggedNavbar = () => {
   const dispatch = useDispatch();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
   const [userdata, setUserData] = useState({});
-  const UserData = useSelector((state) => state.currentUser.value);
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
   }

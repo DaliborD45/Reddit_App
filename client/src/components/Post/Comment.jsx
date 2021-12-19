@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import axios from "axios";
 import CommentForm from "./CommentForm";
-import { Image as ShowImage, Video } from "cloudinary-react";
+import { Image as ShowImage } from "cloudinary-react";
 
 const Comment = ({ postData, votes, setVotes, id }) => {
   const [community, setCommunity] = useState({ name: "" });

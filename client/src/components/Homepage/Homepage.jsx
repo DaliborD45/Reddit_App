@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Postcard from "../Postcard/Postcard";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserLogout, setCurrentUser } from "../../features/currentUser";
-import { useNavigate } from "react-router-dom";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import axios from "axios";
 import { setAllPosts } from "../../features/allPosts";
@@ -15,9 +13,7 @@ import Home from "./Home/Home";
 import About from "./About/About";
 import CreateCommunityModal from "../CreateCommunityModal/CreateCommunityModal";
 const Homepage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isCommunityModalOpen = useSelector((state) => state.modal.isOpen);
   const allPosts = useSelector((state) => state.allPosts.value);
   useEffect(() => {
     const getAllPosts = async () => {

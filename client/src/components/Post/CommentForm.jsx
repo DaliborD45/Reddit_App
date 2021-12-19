@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { addComment } from "../../features/allComments";

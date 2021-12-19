@@ -1,26 +1,6 @@
 import React from "react";
-
+import { list, list2 } from "./Lists";
 const About = () => {
-  const list = [
-    "Help",
-    "Reddit Coins",
-    "Reddit Premium",
-    "Reddit Gifts",
-    "Communities",
-    "Rereddit",
-    "Topics",
-  ];
-  const list2 = [
-    "About",
-    "Careers",
-    "Press",
-    "Advertise",
-    "Blog",
-    "Terms",
-    "Content Policy",
-    "Privacy Policy",
-    "Mod Policy",
-  ];
   return (
     <div className="bg-white w-80 h-64 rounded-sm  mt-8 r -ml-40  ">
       <section className="flex">
@@ -41,7 +21,9 @@ const About = () => {
         </section>
       </section>
 
-      <p className="ml-5 text-xs pt-5">Reddit Inc © 2021 . All rights reserved</p>
+      <p className="ml-5 text-xs pt-5">
+        Reddit Inc © 2021 . All rights reserved
+      </p>
     </div>
   );
 };

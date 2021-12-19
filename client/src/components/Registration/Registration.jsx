@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -141,46 +141,11 @@ const Registration = () => {
               </Field>
             </div>
 
-            {/* <div className="grid grid-cols-1 mt-5 mx-7">
-          <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
-            Another Input
-          </label>
-          <input
-            className="py-2 px-3 rounded-lg border-2 border-yellow-500 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-700 focus:border-transparent"
-            type="text"
-            placeholder="Another Input"
-          />
-        </div> */}
-
             <div className="grid grid-cols-1 mt-5 mx-7">
               <label className="flex uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">
                 Upload Profile Pic{" "}
                 <p className="text-xs ml-3 text-gray-400">*not required*</p>
               </label>
-              {/* <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-yellow-500 group">
-                  <div className="flex flex-col items-center justify-center pt-7">
-                    <svg
-                      className="w-10 h-10 text-yellow-400 group-hover:text-yellow-700"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      ></path>
-                    </svg>
-                    <p className="lowercase text-sm text-gray-400 group-hover:text-yellow-700 pt-1 tracking-wider">
-                      Select a photo
-                    </p>
-                  </div>
-                  <Field type="file" className="hidden" />
-                </label>
-              </div> */}
             </div>
 
             <div className="flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5">

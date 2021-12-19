@@ -10,9 +10,9 @@ import {
   faArrowAltCircleUp as arrowUpSolid,
   faArrowAltCircleDown as arrowDownSolid,
 } from "@fortawesome/free-solid-svg-icons";
-import { Image as ShowImage, Video } from "cloudinary-react";
+import { Image as ShowImage } from "cloudinary-react";
 import DeleteButton from "./DeleteButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const Postcard = ({
   title,
   text,
@@ -23,11 +23,9 @@ const Postcard = ({
   PostAuthorId,
   authorName,
 }) => {
-  const dispatch = useDispatch();
   const [votes, setVotes] = useState(0);
   const [community, setCommunity] = useState({ name: "" });
   const upvotes = useSelector((state) => state.votes.Upvoted);
-  const downvotes = useSelector((state) => state.votes.Downvoted);
   const [manageUpvote, setManageVote] = useState({
     isUpvoted: false,
     isDownvoted: false,

@@ -1,20 +1,10 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  setUserLogout,
-  setUserStatus,
-  setCurrentUser,
-} from "../../features/currentUser";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
-  const UserData = useSelector((state) => state.currentUser.value);
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
   }

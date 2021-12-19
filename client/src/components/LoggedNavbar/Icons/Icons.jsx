@@ -1,5 +1,5 @@
 import React from "react";
-import { faPlus, faHome, faFireAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus,faFireAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 

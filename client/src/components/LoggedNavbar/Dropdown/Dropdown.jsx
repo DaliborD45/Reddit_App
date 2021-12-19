@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 const Dropdown = () => {
-  const [communities, setCommunities] = useState([]);
   const allCommunities = useSelector((state) => state.allCommunities.value);
 
-  useEffect(() => {
-    const getCommunities = async () => {
-      const data = await axios.get("http://localhost:3001/community");
-      setCommunities(data.data);
-    };
-    getCommunities();
-  }, []);
   return (
     <>
       <FontAwesomeIcon

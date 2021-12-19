@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import CommentsField from "./CommentsField";
 import Navbar from "../Navbar/Navbar";
-import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import { useDispatch } from "react-redux";
 import { setUpvote, setDownvote } from "../../features/votes";
