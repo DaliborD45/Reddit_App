@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+require("dotenv").config();
+
 const { body, validationResult } = require("express-validator");
 const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
@@ -67,7 +69,7 @@ router.post("/login", async (req, res) => {
         id: user.id,
         name: user.name,
       },
-      "exkp0487k0vyhu8"
+      process.env.DB_KEY
     );
     res.status(200).json(token);
   }
