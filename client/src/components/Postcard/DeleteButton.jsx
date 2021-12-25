@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import DeleteModal from "./DeleteModal";
 
 const DeleteButton = ({ PostAuthorId, PostId }) => {
@@ -11,12 +9,13 @@ const DeleteButton = ({ PostAuthorId, PostId }) => {
   return (
     userId === PostAuthorId && (
       <>
-        <FontAwesomeIcon
-          icon={faTimesCircle}
-          className="hover:text-red-500 ml-96"
-          size="lg"
+        <button
+          className="mt-2 hover:opacity-90 text-white text-xs font-semibold bg-red-500 px-3 py-1 rounded-md"
           onClick={() => setOpen(true)}
-        />
+        >
+          Delete Post
+        </button>
+
         <DeleteModal isOpen={isOpen} setOpen={setOpen} PostId={PostId} />
       </>
     )

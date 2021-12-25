@@ -124,7 +124,6 @@ const Postcard = ({
         <section className="text-xs flex pt-2 pl-2">
           <p className="font-bold ">{`r/${community.name}`}</p>
           <p className="pl-2 text-gray-400">{`Posted by u/${authorName}`}</p>
-          <DeleteButton PostAuthorId={PostAuthorId} PostId={id} />
         </section>
         <section onClick={() => navigate(`/post/${id}`)}>
           <section className="w-11/12 ml-4 mt-2">

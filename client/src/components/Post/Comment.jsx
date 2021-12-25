@@ -3,6 +3,7 @@ import SideBar from "./SideBar";
 import axios from "axios";
 import CommentForm from "./CommentForm";
 import { Image as ShowImage } from "cloudinary-react";
+import DeleteButton from "../Postcard/DeleteButton";
 
 const Comment = ({ postData, votes, setVotes, id }) => {
   const [community, setCommunity] = useState({ name: "" });
@@ -42,6 +43,8 @@ const Comment = ({ postData, votes, setVotes, id }) => {
             className="max-w-full max-h-full mx-auto"
           />
         </section>
+        <DeleteButton PostAuthorId={postData.authorId} PostId={id} />
+
         <CommentForm postData={postData} PostId={id} />
         <section className="border-b-2 border-gray-300 w-full pt-4"></section>
       </section>
