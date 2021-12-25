@@ -1,7 +1,7 @@
 # Reddit_App
-##Fullstack reddit clone 
+## Fullstack reddit clone 
 
-##Features
+## Features
 -creating account
 -creating community
 -creating text and image post
@@ -10,7 +10,7 @@
 -adding comments to the post
 
 
-##Technologies
+## Technologies
 -Frontend : ReactJS , TailwindCSS 
 -Backend : ExpressJS , Mysql 
 
