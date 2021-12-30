@@ -6,6 +6,7 @@ import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import About from "../Homepage/About/About";
 import AddPost from "../Homepage/AddPost/AddPost";
 import Postcard from "../Postcard/Postcard";
+import Subscribe from "./Subscribe/Subscribe";
 const Community = () => {
   const { id } = useParams();
   const [allPosts, setAllPosts] = useState([]);
@@ -22,9 +23,6 @@ const Community = () => {
         console.log(error);
       }
     };
-    getPosts();
-  }, []);
-  useEffect(() => {
     const getCommunity = async () => {
       try {
         const res = await axios.get(
@@ -36,7 +34,7 @@ const Community = () => {
         console.log(error);
       }
     };
-
+    getPosts();
     getCommunity();
   }, []);
   return (
@@ -45,10 +43,13 @@ const Community = () => {
       <LoggedNavbar />
       <div className="w-full h-screen bg-white ">
         <section className=" bg-banner-img  bg-repeat bg-containw w-full  h-64 bg-gray-800"></section>
-        <h1 className="font-bold text-4xl text-center mt-5">
-          r/{communityData.name}
-        </h1>
-        <section className="w-full bg-red-200 min-h-screen pb-20">
+        <section className="flex w-full justify-center">
+          <h1 className="font-bold text-4xl text-center mt-5">
+            r/{communityData.name}
+          </h1>
+          <Subscribe communityId={id} />
+        </section>
+        <section className="w-full bg-gray-300 min-h-screen pb-20">
           <section className="w-7/12  mb-20  flex mx-auto mt-6">
             <section className="w-full">
               <AddPost />

@@ -2,7 +2,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Dropdown = () => {
+  const navigate = useNavigate();
   const allCommunities = useSelector((state) => state.allCommunities.value);
 
   return (
@@ -20,7 +22,13 @@ const Dropdown = () => {
           Home
         </option>
         {allCommunities.map(({ name, id }) => {
-          return <option value={id} className="text-sm">{`r/${name}`}</option>;
+          return (
+            <option
+              onClick={() => navigate(`community/${id}`)}
+              value={id}
+              className="text-sm"
+            >{`r/${name}`}</option>
+          );
         })}
       </select>
     </>

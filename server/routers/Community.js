@@ -33,7 +33,7 @@ router.post("/createCommunity", checkAuth, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const allCommunities = await prisma.community.findMany({
-      include: { Post: true },
+      include: { Posts: true },
     });
     return res.status(200).json(allCommunities);
   } catch (error) {

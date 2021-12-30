@@ -9,9 +9,7 @@ const JWT = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 
-router.get("/", async (req, res) => {
-  res.send("test server");
-});
+
 
 router.post(
   "/register",

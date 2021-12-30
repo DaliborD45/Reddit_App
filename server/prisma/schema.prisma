@@ -11,25 +11,35 @@ datasource db {
 }
 
 model Community {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id           Int             @id @default(autoincrement())
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
   name         String
   type         String
-  adultContent Boolean  @default(false)
-  users        User[]
-  Post         Post[]
+  adultContent Boolean         @default(false)
+  Posts        Post[]
+  Users        CommunityUser[]
 }
 
 model User {
-  id          Int        @id @default(autoincrement())
-  email       String     @unique
+  id          Int             @id @default(autoincrement())
+  email       String          @unique
   password    String
   name        String
-  posts       Post[]
-  like        Like[]
-  Community   Community? @relation(fields: [communityId], references: [id])
-  communityId Int?
+  Posts       Post[]
+  Likes       Like[]
+  Communities CommunityUser[]
+}
+
+model CommunityUser {
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  communityId Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@id([userId, communityId])
 }
 
 model Post {
@@ -42,8 +52,8 @@ model Post {
   authorId    Int
   authorName  String
   imageId     String?
-  Like        Like[]
-  Comment     Comment[]
+  Like       Like[]
+  Comments    Comment[]
   Community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
   communityId Int
 
