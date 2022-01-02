@@ -2,6 +2,7 @@
 ## Fullstack reddit clone 
 
 ## Features
+-responsivity for smaller screens
 -creating account <br/>
 -creating community <br/>
 -creating text and image post <br/>
