@@ -34,39 +34,28 @@ const Homepage = () => {
         <Navbar />
         <LoggedNavbar />
         <CreateCommunityModal />
-        <section className="w-7/12  mb-20  flex mx-auto mt-10">
-          <section className="w-full">
+        <section className="lg:w-[1050px] shrink-0  mb-20  flex md:ml-10 lg:mx-auto mt-10  ">
+          <section className="w-full ">
             <AddPost />
             {allPosts
-              .map(
-                ({
-                  title,
-                  text,
-                  id,
-                  Like,
-                  imageId,
-                  communityId,
-                  authorName,
-                  authorId,
-                }) => {
-                  return (
-                    <Postcard
-                      key={id}
-                      title={title}
-                      text={text}
-                      id={id}
-                      postLikes={Like}
-                      imageId={imageId}
-                      communityId={communityId}
-                      authorName={authorName}
-                      PostAuthorId={authorId}
-                    />
-                  );
-                }
-              )
+              .map((attribute) => {
+                return (
+                  <Postcard
+                    key={attribute.id}
+                    title={attribute.title}
+                    text={attribute.text}
+                    id={attribute.id}
+                    postLikes={attribute.Like}
+                    imageId={attribute.imageId}
+                    communityId={attribute.communityId}
+                    authorName={attribute.authorName}
+                    PostAuthorId={attribute.authorId}
+                  />
+                );
+              })
               .reverse()}
           </section>
-          <section>
+          <section className="hidden lg:block">
             <Communities />
             <TryPremium />
             <Home />

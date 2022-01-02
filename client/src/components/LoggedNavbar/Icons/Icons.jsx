@@ -15,7 +15,7 @@ const Icons = () => {
     navigate("/addPost");
   };
   return (
-    <section className="my-auto ml-5 ">
+    <section className="hidden lg:flex my-auto ml-5 ">
       <FontAwesomeIcon className="mx-3" icon={faFireAlt} size="lg" />
       <FontAwesomeIcon className="mx-3" icon={faImages} size="lg" />
       <FontAwesomeIcon className="mx-3" icon={faCommentDots} size="lg" />

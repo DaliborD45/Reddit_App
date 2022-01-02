@@ -11,11 +11,11 @@ const Dropdown = () => {
     <>
       <FontAwesomeIcon
         icon={faHome}
-        className="absolute top-6 left-52"
+        className="absolute top-4 left-52"
         size="lg"
       />
       <select
-        className="w-72 mx-5 pl-10 mt-3  -pt-3  h-10  bg-white  border-2 border-gray-300 rounded-md"
+        className="hidden  lg:block mx-5 pl-10 mt-2   h-10  bg-white  border-2 border-gray-300 rounded-md"
         placeholder="select a community"
       >
         <option value="" className="" disabled selected>

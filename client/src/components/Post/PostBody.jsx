@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import { Image as ShowImage } from "cloudinary-react";
 import DeleteButton from "../Postcard/DeleteButton";
 
-const Comment = ({ postData, votes, setVotes, id }) => {
+const PostBody = ({ postData, votes, setVotes, id }) => {
   const [community, setCommunity] = useState({ name: "" });
   useEffect(() => {
     const getCommunityById = async () => {
@@ -52,4 +52,4 @@ const Comment = ({ postData, votes, setVotes, id }) => {
   );
 };
 
-export default Comment;
+export default PostBody;

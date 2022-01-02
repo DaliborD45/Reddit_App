@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import CommentsField from "./CommentsField";
 import Navbar from "../Navbar/Navbar";
-import Comment from "./Comment";
+import PostBody from "./PostBody";
 import { useDispatch } from "react-redux";
 import { setUpvote, setDownvote } from "../../features/votes";
+import CommunityInfo from "./CommunityInfo";
 const Post = () => {
   const [votes, setVotes] = useState([]);
   const [postData, setPostData] = useState({});
@@ -41,9 +42,9 @@ const Post = () => {
       <Navbar />
       <LoggedNavbar />
       <div className="w-screen min-h-screen bg-gray-700 pt-10">
-        <section className="w-2/3 min-h-screen h-full bg-gray-300 mx-auto ">
-          <section className="w-3/5 ml-32 pt-10 min-h-screen h-full ">
-            <Comment
+        <section className="flex w-2/3 min-h-screen h-full bg-gray-300 mx-auto md:w-[1188px] shrink-0">
+          <section className="w-3/5 ml-28 pt-10 min-h-screen h-full ">
+            <PostBody
               postData={postData}
               votes={votes}
               setVotes={setVotes}
@@ -54,8 +55,10 @@ const Post = () => {
               <CommentsField PostId={id} />
             </section>
           </section>
+          <section className="w-1/3 hidden lg:block">
+            <CommunityInfo />
+          </section>
         </section>
-        <section></section>
       </div>
     </>
   );

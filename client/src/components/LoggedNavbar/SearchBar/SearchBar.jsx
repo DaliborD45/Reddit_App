@@ -4,7 +4,7 @@ const SearchBar = () => {
   return (
     <section className=" relative  text-gray-600 w-2/5 ml-3 my-auto">
       <input
-        className="w-full border-2 mt-2 border-gray-300 bg-white h-10  rounded-lg text-sm focus:outline-none pl-5"
+        className="w-full border-2 mt-1 border-gray-300 bg-white h-10  rounded-lg text-sm focus:outline-none pl-5"
         type="search"
         name="search"
         placeholder="Search Reddit"

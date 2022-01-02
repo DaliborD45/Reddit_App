@@ -103,7 +103,7 @@ const Postcard = ({
   };
 
   return (
-    <div className="w-9/12 flex  mt-9  rounded-sm  overflow-hidden border border-gray-400">
+    <div className="max-w-3xl lg:w-9/12 flex  mt-9  rounded-sm  overflow-hidden border border-gray-400">
       <section className="w-1/12 bg-gray-200 flex flex-col pt-2">
         <FontAwesomeIcon
           icon={manageUpvote.isUpvoted ? arrowUpSolid : arrowUpRegular}
