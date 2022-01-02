@@ -16,7 +16,7 @@ const MainForm = ({ title, setTitle, image, setImage }) => {
             <li
               key={id}
               onClick={() => clickedPostMethodHandler(id)}
-              className="border border-r w-1/4 text-center h-full pt-3 hover:bg-gray-100"
+              className="border border-r w-1/4 text-center h-full pt-3 hover:bg-gray-100 text-sm md:text-lg"
             >
               {name}
             </li>

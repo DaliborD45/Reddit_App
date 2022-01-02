@@ -22,7 +22,7 @@ const AddPost = () => {
       <Navbar />
       <LoggedNavbar />
       <div className="w-screen h-screen bg-gray-300">
-        <section className="w-5/12 mx-auto pt-40">
+        <section className="w-11/12 md:w-[745px] shrink-0 mx-auto pt-40">
           <h1 className="font-semibold text-lg pb-3  border-b-2">
             Create a post
           </h1>

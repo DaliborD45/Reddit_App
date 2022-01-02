@@ -22,7 +22,7 @@ const PostBody = ({ postData, votes, setVotes, id }) => {
     getCommunityById();
   }, []);
   return (
-    <div className=" pt-2 flex bg-white">
+    <div className="max-w-sm sm:max-w-xl md:max-w-3xl shrink-1 pt-2 flex bg-white">
       <section className="pl-2   w-10">
         <SideBar votes={votes} setVotes={setVotes} PostId={id} />
       </section>
@@ -36,7 +36,7 @@ const PostBody = ({ postData, votes, setVotes, id }) => {
             {postData.title}
           </h1>
 
-          <p className="pt-10 ">{postData.content}</p>
+          <p className="pt-10 max-w-xs sm:max-w-lg md:max-w-3xl">{postData.content}</p>
           <ShowImage
             cloudName="dqhkvx2z5"
             publicId={postData.imageId}

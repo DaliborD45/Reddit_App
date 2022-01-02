@@ -53,7 +53,7 @@ const PostForm = ({ setTitle, tags }) => {
           );
         })}
       </section>
-      <section className="flex ml-auto mr-8 mb-5">
+      <section className="flex ml-auto mr-8 mb-5 mt-5 md:mt-0">
         <button
           type="button"
           className="px-5 py-2 text-gray-400 font-bold border border-gray-500 rounded-full mr-5 hover:bg-gray-200"

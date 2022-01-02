@@ -128,7 +128,9 @@ const Postcard = ({
         <section onClick={() => navigate(`/post/${id}`)}>
           <section className="w-11/12 ml-4 mt-2">
             <p className="text-md font-bold text-xl">{title}</p>
-            <p className=" mt-3">{text}</p>
+            <p className=" mt-3 mb-5 text-black">
+              {text.length > 550 ? `${text.slice(0,550)}...` : text}
+            </p>
           </section>
           {imageId !== null && (
             <section className="w-full">

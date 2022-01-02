@@ -43,7 +43,7 @@ const Homepage = () => {
                   <Postcard
                     key={attribute.id}
                     title={attribute.title}
-                    text={attribute.text}
+                    text={attribute.content}
                     id={attribute.id}
                     postLikes={attribute.Like}
                     imageId={attribute.imageId}

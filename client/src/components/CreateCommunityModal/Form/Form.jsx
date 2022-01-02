@@ -12,7 +12,7 @@ const Form = ({ setCommunityName, errorMessage }) => {
     <FormikForm>
       <div
         aria-hidden="true"
-        className=" overflow-x-hidden bg-gray-700/80 overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center"
+        className=" overflow-y-hidden bg-gray-700/80  fixed h-screen md:h-full  left-0 right-0 md:inset-0 z-50 justify-center items-center"
       >
         <div className="relative w-full max-w-2xl mx-auto mt-20 px-4 h-full md:h-auto">
           <div className="bg-white rounded-lg shadow  dark:bg-gray-700 border ">

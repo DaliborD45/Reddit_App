@@ -51,7 +51,7 @@ const CommentForm = ({ PostId }) => {
               style={{ width: "600px" }}
               as="textarea"
               name="content"
-              className="form-textarea mt-1 block w-full border border-black rounded-md p-2"
+              className="max-w-xs sm:max-w-md  form-textarea mt-1 block w-full border border-black rounded-md p-2"
               placeholder="Enter some long form content."
             />
             {loggedAlert && (

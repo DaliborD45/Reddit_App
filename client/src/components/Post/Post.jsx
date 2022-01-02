@@ -42,8 +42,8 @@ const Post = () => {
       <Navbar />
       <LoggedNavbar />
       <div className="w-screen min-h-screen bg-gray-700 pt-10">
-        <section className="flex w-2/3 min-h-screen h-full bg-gray-300 mx-auto md:w-[1188px] shrink-0">
-          <section className="w-3/5 ml-28 pt-10 min-h-screen h-full ">
+        <section className="flex w-3/3 min-h-screen h-full bg-gray-300 mx-auto md:w-[1188px] shrink-0">
+          <section className="max-w-3xl mx-auto md:w-3/5 md:ml-28 pt-10 min-h-screen h-full ">
             <PostBody
               postData={postData}
               votes={votes}
