@@ -1,5 +1,5 @@
 import React from "react";
-import { faPlus,faFireAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faFireAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
@@ -16,12 +16,28 @@ const Icons = () => {
   };
   return (
     <section className="hidden lg:flex my-auto ml-5 ">
-      <FontAwesomeIcon className="mx-3" icon={faFireAlt} size="lg" />
-      <FontAwesomeIcon className="mx-3" icon={faImages} size="lg" />
-      <FontAwesomeIcon className="mx-3" icon={faCommentDots} size="lg" />
-      <FontAwesomeIcon className="mx-3" icon={faBell} size="lg" />
       <FontAwesomeIcon
-        className="mx-3"
+        className="mx-3 hover:text-gray-700"
+        icon={faFireAlt}
+        size="lg"
+      />
+      <FontAwesomeIcon
+        className="mx-3 hover:text-gray-700"
+        icon={faImages}
+        size="lg"
+      />
+      <FontAwesomeIcon
+        className="mx-3 hover:text-gray-700"
+        icon={faCommentDots}
+        size="lg"
+      />
+      <FontAwesomeIcon
+        className="mx-3 hover:text-gray-700"
+        icon={faBell}
+        size="lg"
+      />
+      <FontAwesomeIcon
+        className="mx-3 hover:text-gray-700"
         icon={faPlus}
         onClick={handleAddPost}
         size="lg"

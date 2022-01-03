@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
+
 import Dropdown from "./Dropdown/Dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserStatus, setCurrentUser } from "../../features/currentUser";
@@ -9,6 +8,7 @@ import Profile from "./Profile/Profile";
 import SearchBar from "./SearchBar/SearchBar";
 import Logo from "./Logo/Logo";
 import Icons from "./Icons/Icons";
+import Free from "./Free/Free";
 const LoggedNavbar = () => {
   const dispatch = useDispatch();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
@@ -45,12 +45,7 @@ const LoggedNavbar = () => {
         <Dropdown />
         <SearchBar />
         <Icons />
-        <section className="my-auto ml-2">
-          <div className="w-20 bg-yellow-300 h-10 rounded-full flex hover:opacity-90">
-            <FontAwesomeIcon icon={faMoneyBillAlt} className="mt-3 ml-2" />
-            <p className="pt-1.5 pl-1 ">Free</p>
-          </div>
-        </section>
+        <Free />
 
         <section className="ml-2 my-auto">
           <Profile username={userdata.name} />

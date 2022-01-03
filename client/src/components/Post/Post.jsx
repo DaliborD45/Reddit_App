@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUpvote, setDownvote } from "../../features/votes";
 import CommunityInfo from "./CommunityInfo";
 const Post = () => {
+  const [community, setCommunity] = useState({ name: "" });
   const [votes, setVotes] = useState([]);
   const [postData, setPostData] = useState({});
   const { id } = useParams();
@@ -29,14 +30,26 @@ const Post = () => {
         console.log(data.data.Like);
         setPostData(data.data);
         setVotes(data.data.Like);
+        getCommunityById(data.data.communityId);
+
         getVoteData(data.data.Like, data.data.authorId);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const getCommunityById = async (id) => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/community/byId/${id}`
+        );
+        console.log(res);
+        setCommunity(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     getPostData();
   }, []);
-
   return (
     <>
       <Navbar />
@@ -49,6 +62,7 @@ const Post = () => {
               votes={votes}
               setVotes={setVotes}
               id={id}
+              community={community}
             />
 
             <section className="bg-white">
@@ -56,7 +70,7 @@ const Post = () => {
             </section>
           </section>
           <section className="w-1/3 hidden lg:block">
-            <CommunityInfo />
+            <CommunityInfo communityName={community.name} />
           </section>
         </section>
       </div>

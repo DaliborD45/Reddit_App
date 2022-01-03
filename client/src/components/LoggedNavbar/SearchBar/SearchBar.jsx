@@ -9,7 +9,7 @@ const SearchBar = () => {
         name="search"
         placeholder="Search Reddit"
       />
-      <button type="submit" className="absolute right-4 top-0 mt-4 text-right">
+      <button type="submit" className="absolute right-4 -top-1 mt-4 text-right">
         <svg
           fill="#000000"
           xmlns="http://www.w3.org/2000/svg"

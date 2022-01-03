@@ -11,7 +11,6 @@ import {
   faArrowAltCircleDown as arrowDownSolid,
 } from "@fortawesome/free-solid-svg-icons";
 import { Image as ShowImage } from "cloudinary-react";
-import DeleteButton from "./DeleteButton";
 import { useSelector } from "react-redux";
 const Postcard = ({
   title,
@@ -103,7 +102,7 @@ const Postcard = ({
   };
 
   return (
-    <div className="max-w-3xl lg:w-9/12 flex  mt-9  rounded-sm  overflow-hidden border border-gray-400">
+    <div className="max-w-3xl lg:w-9/12 flex  mt-9  rounded-sm  overflow-hidden">
       <section className="w-1/12 bg-gray-200 flex flex-col pt-2">
         <FontAwesomeIcon
           icon={manageUpvote.isUpvoted ? arrowUpSolid : arrowUpRegular}
@@ -129,7 +128,7 @@ const Postcard = ({
           <section className="w-11/12 ml-4 mt-2">
             <p className="text-md font-bold text-xl">{title}</p>
             <p className=" mt-3 mb-5 text-black">
-              {text.length > 550 ? `${text.slice(0,550)}...` : text}
+              {text.length > 550 ? `${text.slice(0, 550)}...` : text}
             </p>
           </section>
           {imageId !== null && (

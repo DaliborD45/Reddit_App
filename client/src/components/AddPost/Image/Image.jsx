@@ -12,14 +12,14 @@ const Image = ({ setTitle, setImage, tags }) => {
             type="text"
             rows="2"
             placeholder="Title"
-            className="w-full mx-auto pr-8 py-2  focus:resize-none focus focus:border-none focus:outline-none break-word"
+            className="w-full border border-gray-400 mx-auto px-5 py-2   focus focus:border-2  break-word"
             onChange={(e) => handleTitleInput(e)}
             name="title"
           />
         </section>
         <section className="mt-5 mb-20">
           <input
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block w-full text-sm text-gray-900  rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-transparent "
             onChange={(event) => setImage(event.target.files[0])}
             type="file"
           ></input>

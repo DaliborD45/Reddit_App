@@ -5,22 +5,8 @@ import CommentForm from "./CommentForm";
 import { Image as ShowImage } from "cloudinary-react";
 import DeleteButton from "../Postcard/DeleteButton";
 
-const PostBody = ({ postData, votes, setVotes, id }) => {
-  const [community, setCommunity] = useState({ name: "" });
-  useEffect(() => {
-    const getCommunityById = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:3001/community/byId/${postData.communityId}`
-        );
-        console.log(res);
-        setCommunity(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCommunityById();
-  }, []);
+const PostBody = ({ postData, votes, setVotes, id,community }) => {
+  
   return (
     <div className="max-w-sm sm:max-w-xl md:max-w-3xl shrink-1 pt-2 flex bg-white">
       <section className="pl-2   w-10">
@@ -36,7 +22,7 @@ const PostBody = ({ postData, votes, setVotes, id }) => {
             {postData.title}
           </h1>
 
-          <p className="pt-10 max-w-xs sm:max-w-lg md:max-w-3xl">{postData.content}</p>
+          <p className="pt-10 max-w-[300px] sm:max-w-lg md:max-w-3xl">{postData.content}</p>
           <ShowImage
             cloudName="dqhkvx2z5"
             publicId={postData.imageId}
