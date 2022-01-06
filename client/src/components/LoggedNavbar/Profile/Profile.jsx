@@ -15,7 +15,7 @@ const Profile = ({ username }) => {
       <button
         id="dropdownDividerButton"
         data-dropdown-toggle="dropdownDivider"
-        className="hidden  md:inline-flex bg-white hover:bg-gray-100 border-2 border-gray-300 text-black  font-medium rounded-lg text-sm px-8 py-1.5 text-center  items-center max-w-[200px] xl:max-w-[260px]"
+        className="hidden  md:inline-flex bg-white hover:bg-gray-100 border-2 border-gray-300 text-black  font-medium rounded-lg text-sm px-8 py-1.5 text-center  items-center w-[200px] xl:w-[250px]"
         type="button"
         onClick={() => setToggleOpen(isOpened ? false : true)}
       >

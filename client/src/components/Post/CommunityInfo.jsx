@@ -1,7 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBirthdayCake } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 const CommunityInfo = ({ communityName }) => {
+  const navigate = useNavigate();
   return (
     <div className="w-10/12 mx-auto mt-10 h-2/4 border border-gray-400 rounded-sm">
       <section className="h-[50px] w-full bg-blue-600">
@@ -34,7 +36,10 @@ const CommunityInfo = ({ communityName }) => {
           <p className="pl-2">Created Sep 17, 2012</p>
         </section>
         <section className="w-full">
-          <button className="w-[292px] mt-5 ml-3  rounded-full bg-blue-800 text-white font-bold h-7 hover:opacity-90">
+          <button
+            onClick={() => navigate("/addPost")}
+            className="w-[292px] mt-5 ml-3  rounded-full bg-blue-800 text-white font-bold h-7 hover:opacity-90"
+          >
             Create a Post
           </button>
         </section>
