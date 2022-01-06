@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CommunityList } from "./CommunityList/CommunityList";
 import { Field } from "formik";
 
-const CommunityTypes = () => {
+const CommunityTypes = ({ errorMessage }) => {
   return (
     <fieldset>
       <p className="font-semibold mb-3 ml-1">Community type</p>
@@ -31,6 +31,9 @@ const CommunityTypes = () => {
           </div>
         );
       })}
+      {errorMessage && (
+        <p className="text-red-500 text-xs pt-1">{errorMessage}</p>
+      )}
     </fieldset>
   );
 };

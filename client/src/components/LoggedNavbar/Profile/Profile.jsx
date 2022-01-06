@@ -8,8 +8,11 @@ import {
   faUserCog,
   faPlusSquare,
   faSignOutAlt,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { setUserLogout } from "../../../features/currentUser";
+import { setOpenModal } from "../../../features/modal";
+
 const Profile = ({ username }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,11 +33,12 @@ const Profile = ({ username }) => {
       <button
         id="dropdownDividerButton"
         data-dropdown-toggle="dropdownDivider"
-        className="   bg-white hover:bg-gray-100 border border-gray-400 text-black  font-medium rounded-lg text-sm px-12 py-1.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="hidden  md:inline-flex bg-white hover:bg-gray-100 border-2 border-gray-300 text-black  font-medium rounded-lg text-sm px-8 py-1.5 text-center  items-center max-w-[200px]"
         type="button"
         onClick={() => setToggleOpen(isOpened ? false : true)}
       >
-        <FontAwesomeIcon icon={faRedditAlien} className="-ml-10" size="2x"/> <p className="pl-5 text-lg text-gray-600 ">{username}</p>
+        <FontAwesomeIcon icon={faRedditAlien} className="-ml-5" size="2x" />{" "}
+        <p className="pl-5 text-sm text-gray-600 truncate">{username}</p>
         <svg
           className="w-4 h-4 ml-2"
           fill="none"
@@ -50,36 +54,44 @@ const Profile = ({ username }) => {
           ></path>
         </svg>
       </button>
+      <FontAwesomeIcon
+        className="inline-flex md:hidden sm:ml-4"
+        icon={faBars}
+        size="2x"
+        onClick={() => setToggleOpen(isOpened ? false : true)}
+      />
       <div
         id="dropdown"
         className={`${
           !isOpened && "hidden"
-        } bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow w-50 dark:bg-gray-700 absolute`}
+        } bg-white  text-base z-10 list-none divide-y divide-gray-100 rounded shadow w-50 dark:bg-gray-700 absolute left-72  sm:right-30 sm:left-auto `}
       >
         <ul className="py-1" aria-labelledby="dropdownButton">
           {profileLinks.map(({ id, name, icon }) => {
-            return id === 4 ? (
+            return id === 4 || 3 ? (
               <li className="flex hover:bg-gray-100">
                 <FontAwesomeIcon icon={icon} className="ml-2 mt-2" size="lg" />
-                <a
+                <p
                   href="#"
-                  onClick={handleUserLogout}
+                  onClick={
+                    id === 4 ? handleUserLogout : () => dispatch(setOpenModal())
+                  }
                   className="text-sm  text-gray-700 block px-4 py-2 "
                 >
                   {name}
-                </a>
+                </p>
               </li>
             ) : (
               <li className="flex hover:bg-gray-100">
                 <FontAwesomeIcon icon={icon} className="ml-2 mt-2" size="lg" />
-                <a
+                <p
                   href="#"
                   className={`text-sm  text-gray-700 block  py-2 ${
                     id === 2 ? "px-2" : "px-4"
                   }`}
                 >
                   {name}
-                </a>
+                </p>
               </li>
             );
           })}

@@ -44,7 +44,10 @@ const Communities = () => {
           })}
         </section>
         <section className=" w-11/12 mx-auto mt-5">
-          <button className="bg-blue-500 rounded-md text-white font-bold py-1 w-full ">
+          <button
+            className="bg-blue-500 rounded-md text-white font-bold py-1 w-full "
+            onClick={() => navigate("/allCommunities")}
+          >
             View All
           </button>
         </section>

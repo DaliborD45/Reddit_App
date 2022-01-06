@@ -26,7 +26,7 @@ const Form = ({ setCommunityName, errorMessage }) => {
                 setCommunityName={setCommunityName}
                 errorMessage={errorMessage}
               />
-              <CommunityTypes />
+              <CommunityTypes errorMessage={errorMessage} />
               <AdultCheck />
             </div>
             <div className="flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
