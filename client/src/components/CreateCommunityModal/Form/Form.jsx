@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import AdultCheck from "./AdultCheck/AdultCheck";
 import NameInput from "./NameInput/NameInput";
 import CommunityTypes from "./CommunityTypes/CommunityTypes";
-const Form = ({ setCommunityName, errorMessage }) => {
+const Form = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   return (
@@ -22,10 +22,7 @@ const Form = ({ setCommunityName, errorMessage }) => {
               </h3>
             </div>
             <div className="p-6 -mt-4">
-              <NameInput
-                setCommunityName={setCommunityName}
-                errorMessage={errorMessage}
-              />
+              <Field name="communityName" className="w-full border pl-2 my-5 py-1 text-lg border-black rounded-md" errorMessage={errorMessage} />
               <CommunityTypes errorMessage={errorMessage} />
               <AdultCheck />
             </div>

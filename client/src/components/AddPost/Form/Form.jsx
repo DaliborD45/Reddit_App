@@ -1,42 +1,30 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import { addPostThunk } from "../../../features/PostReducer";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import MainForm from "./MainForm";
 let addPostSchema = yup.object().shape({
   communityId: yup
     .number("Community is required")
     .required("Community is required"),
 });
-const Form = ({ setLoading, communities }) => {
+const Form = ({ setLoading }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const communities = useSelector((state) => state.allCommunities.value);
   const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-
+  const [imageIdString, setImageIdString] = useState(null);
   const handleAddPost = async (values) => {
-    const { content, communityId } = values;
-
     setLoading(true);
     if (image !== null) {
-      var imageIdString = await handleUploadImage();
+      const response = await handleUploadImage();
+      setImageIdString(response);
     }
     try {
-      const post = await axios.post(
-        "http://localhost:3001/posts/addPost",
-        {
-          title,
-          content,
-          imageId: imageIdString ? imageIdString : null,
-          communityId: parseInt(communityId),
-        },
-        {
-          headers: {
-            authToken: localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      dispatch(addPostThunk(values, imageIdString));
       navigate("/");
       setLoading(false);
     } catch (error) {
@@ -63,6 +51,7 @@ const Form = ({ setLoading, communities }) => {
       initialValues={{
         content: "",
         communityId: null,
+        title: "",
       }}
       validationSchema={addPostSchema}
       onSubmit={(values) => {
@@ -89,7 +78,7 @@ const Form = ({ setLoading, communities }) => {
             </div>
           ) : null}
 
-          <MainForm setTitle={setTitle} setImage={setImage} />
+          <MainForm setImage={setImage} />
         </FormikForm>
       )}
     </Formik>

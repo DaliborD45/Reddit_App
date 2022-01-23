@@ -1,24 +1,14 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setAllCommunities } from "../../../features/communities";
+import { fetchCommunities } from "../../../features/communities";
 const Communities = () => {
   const dispatch = useDispatch();
   const allCommunities = useSelector((state) => state.allCommunities.value);
 
   const navigate = useNavigate();
   useEffect(() => {
-    const getCommunities = async () => {
-      try {
-        const res = await axios.get("http://localhost:3001/community");
-        dispatch(setAllCommunities(res.data));
-        console.log(res);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getCommunities();
+    dispatch(fetchCommunities());
   }, []);
   return (
     <div className="bg-white w-80 h-96 rounded-lg  mt-8 r -ml-40 border border-gray-400">

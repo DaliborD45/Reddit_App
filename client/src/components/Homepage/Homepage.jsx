@@ -3,29 +3,18 @@ import Navbar from "../Navbar/Navbar";
 import Postcard from "../Postcard/Postcard";
 import { useSelector, useDispatch } from "react-redux";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
-import axios from "axios";
-import { setAllPosts } from "../../features/allPosts";
 import Communities from "./Communities/Communities";
 import AddPost from "./AddPost/AddPost";
 import TryPremium from "./TryPremium/TryPremium";
 import Home from "./Home/Home";
-
 import About from "./About/About";
+import { fetchPosts } from "../../features/PostReducer";
 import CreateCommunityModal from "../CreateCommunityModal/CreateCommunityModal";
 const Homepage = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts.value);
   useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const data = await axios.get("http://localhost:3001/posts");
-        dispatch(setAllPosts(data.data));
-        console.info(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllPosts();
+    dispatch(fetchPosts());
   }, []);
 
   return (

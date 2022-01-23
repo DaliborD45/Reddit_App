@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedditAlien } from "@fortawesome/free-brands-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import ProfileList from "./ProfileList/ProfileList";
-
-const Profile = ({ username }) => {
-
-
+import { useSelector } from "react-redux";
+const Profile = () => {
   const [isOpened, setToggleOpen] = useState(false);
+  const userDataName = useSelector((state) => state.currentUser.value.name);
 
   return (
     <>
@@ -20,7 +18,7 @@ const Profile = ({ username }) => {
         onClick={() => setToggleOpen(isOpened ? false : true)}
       >
         <FontAwesomeIcon icon={faRedditAlien} className="-ml-5" size="2x" />{" "}
-        <p className="pl-5 text-sm text-gray-600 truncate">{username}</p>
+        <p className="pl-5 text-sm text-gray-600 truncate">{userDataName}</p>
         <svg
           className="w-4 h-4 ml-2"
           fill="none"
@@ -42,7 +40,7 @@ const Profile = ({ username }) => {
         size="2x"
         onClick={() => setToggleOpen(isOpened ? false : true)}
       />
-      <ProfileList isOpened={isOpened}/>
+      <ProfileList isOpened={isOpened} />
     </>
   );
 };

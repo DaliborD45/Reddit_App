@@ -1,23 +1,15 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { deletePostThunk } from "../../features/PostReducer";
 const DeleteModal = ({ isOpen, setOpen, PostId }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch
   const handlePostDelete = async () => {
     try {
-      const res = axios.delete(
-        `http://localhost:3001/posts/deletePost/${PostId}`,
-        {
-          headers: {
-            authToken: localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      dispatch(deletePostThunk(PostId))
       navigate("/");
       window.location.reload();
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

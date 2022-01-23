@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { Field } from "formik";
 
-const PostForm = ({ setTitle, tags }) => {
-  const handleTitleInput = (e) => {
-    setTitle(e.target.value);
-  };
-
+const PostForm = ({ tags }) => {
   return (
     <>
       <section className="flex flex-row w-11/12 mx-auto  rounded-md mt-4 border border-gray-200 ">
-        <textarea
+        <Field
           type="text"
           rows="2"
           placeholder="Title"
           className="w-full mx-auto  pl-3 py-2 focus:border-none focus:outline-none break-word"
-          onChange={handleTitleInput}
           name="title"
         />
       </section>
@@ -26,12 +21,9 @@ const PostForm = ({ setTitle, tags }) => {
         placeholder="Text (optional)"
       />
       <section className="flex  w-11/12 mx-auto">
-        {tags.map(({ name, title }) => {
+        {tags.map(({ name }) => {
           return (
-            <button
-              title={title}
-              className=" py-1 rounded-full text-gray-400 font-bold px-4  border border-gray-400 flex mr-2 hover:bg-gray-100"
-            >
+            <button className=" py-1 rounded-full text-gray-400 font-bold px-4  border border-gray-400 flex mr-2 hover:bg-gray-100">
               <svg
                 version="1.1"
                 id="Layer_1"

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setOpenModal } from "../../../features/modal";
 
-import "@themesberg/flowbite";
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

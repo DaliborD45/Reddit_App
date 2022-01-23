@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { currentUserThunk } from "../../features/currentUser";
 import Dropdown from "./Dropdown/Dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserStatus, setCurrentUser } from "../../features/currentUser";
@@ -12,7 +12,6 @@ import Free from "./Free/Free";
 const LoggedNavbar = () => {
   const dispatch = useDispatch();
   const isLoggedStatus = useSelector((state) => state.currentUser.value.status);
-  const [userdata, setUserData] = useState({});
   if (isLoggedStatus !== undefined) {
     console.log(isLoggedStatus);
   }
@@ -20,17 +19,7 @@ const LoggedNavbar = () => {
   useEffect(() => {
     const getUsersData = async () => {
       try {
-        const data = await axios.get(
-          "http://localhost:3001/users/getUserData",
-          {
-            headers: {
-              authToken: localStorage.getItem("accessToken"),
-            },
-          }
-        );
-        dispatch(setCurrentUser(data.data));
-        setUserData(data.data);
-        dispatch(setUserStatus());
+        dispatch(currentUserThunk());
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +37,7 @@ const LoggedNavbar = () => {
         <Free />
 
         <section className="ml-2 my-auto">
-          <Profile username={userdata.name} />
+          <Profile  />
         </section>
       </div>
     )

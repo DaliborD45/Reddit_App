@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUserStatus } from "../../features/currentUser";
+import { loginUserThunk } from "../../features/currentUser";
 import { useNavigate } from "react-router-dom";
 import MainForm from "./MainForm/MainForm";
 const Login = () => {
@@ -11,15 +10,8 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const loginUser = async (values) => {
-    const { email, password } = values;
     try {
-      const token = await axios.post("http://localhost:3001/users/login", {
-        email,
-        password,
-      });
-      localStorage.setItem("accessToken", token.data);
-      dispatch(setUserStatus());
-      console.log(token);
+      dispatch(loginUserThunk(values));
       navigate("/");
     } catch (error) {
       setErrorMessage(error.response.data);

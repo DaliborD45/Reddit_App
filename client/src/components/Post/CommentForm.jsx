@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { addComment } from "../../features/allComments";
-import axios from "axios";
+import { addCommentThunk } from "../../features/allComments";
 import { useNavigate } from "react-router-dom";
 
 const CommentForm = ({ PostId }) => {
@@ -11,20 +10,8 @@ const CommentForm = ({ PostId }) => {
   const dispatch = useDispatch();
   const [loggedAlert, setLoggedAlert] = useState(false);
   const handleComment = async (value) => {
-    const { content } = value;
     try {
-      const res = await axios.post(
-        "http://localhost:3001/comments",
-        { postId: PostId, content },
-        {
-          headers: {
-            authToken: localStorage.getItem("accessToken"),
-          },
-        }
-      );
-      dispatch(addComment(res.data));
-
-      console.log(res);
+      dispatch(addCommentThunk(value));
     } catch (error) {
       console.log(error);
       setLoggedAlert(true);
@@ -32,6 +19,7 @@ const CommentForm = ({ PostId }) => {
   };
   const initialValues = {
     content: "",
+    PostId: PostId,
   };
   return (
     <>

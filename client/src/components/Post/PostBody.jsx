@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SideBar from "./SideBar";
-import axios from "axios";
 import CommentForm from "./CommentForm";
 import { Image as ShowImage } from "cloudinary-react";
 import DeleteButton from "../Postcard/DeleteButton";
 
-const PostBody = ({ postData, votes, setVotes, id,community }) => {
-  
+const PostBody = ({ postData, votes, setVotes, id, community }) => {
   return (
     <div className="max-w-sm sm:max-w-xl md:max-w-3xl shrink-1 pt-2 flex bg-white">
       <section className="pl-2   w-10">
@@ -22,7 +20,9 @@ const PostBody = ({ postData, votes, setVotes, id,community }) => {
             {postData.title}
           </h1>
 
-          <p className="pt-10 max-w-[300px] sm:max-w-lg md:max-w-3xl">{postData.content}</p>
+          <p className="pt-10 max-w-[300px] sm:max-w-lg md:max-w-3xl">
+            {postData.content}
+          </p>
           <ShowImage
             cloudName="dqhkvx2z5"
             publicId={postData.imageId}

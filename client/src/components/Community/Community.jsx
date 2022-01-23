@@ -1,41 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Navbar from "../Navbar/Navbar";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import About from "../Homepage/About/About";
 import AddPost from "../Homepage/AddPost/AddPost";
 import Postcard from "../Postcard/Postcard";
 import Subscribe from "./Subscribe/Subscribe";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCommunitiesById } from "../../features/communities";
+import { getPostsByCommunityId } from "../../features/PostReducer";
 const Community = () => {
+  const communityData = useSelector(
+    (state) => state.allCommunities.currentCommunity
+  );
+  const allPosts = useSelector((state) => state.allPosts.commIdPosts);
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const [allPosts, setAllPosts] = useState([]);
-  const [communityData, setCommunityData] = useState({});
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        var res = await axios.get(
-          `http://localhost:3001/posts/byCommunityId/${id}`
-        );
-        console.info(res.data);
-        setAllPosts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const getCommunity = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:3001/community/byId/${id}`
-        );
-        console.log(res.data);
-        setCommunityData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getPosts();
-    getCommunity();
+    dispatch(fetchCommunitiesById(id));
+    dispatch(getPostsByCommunityId(id));
   }, []);
   return (
     <>

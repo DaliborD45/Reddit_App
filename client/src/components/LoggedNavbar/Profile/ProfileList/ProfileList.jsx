@@ -22,7 +22,11 @@ const ProfileList = ({ isOpened }) => {
   const handleUserLogout = () => {
     localStorage.clear();
     dispatch(setUserLogout());
-    navigate("/login");
+    navigate("/");
+  };
+  const handleCreateCommunity = () => {
+    navigate("/");
+    dispatch(setOpenModal());
   };
   return (
     <div
@@ -38,9 +42,7 @@ const ProfileList = ({ isOpened }) => {
               <FontAwesomeIcon icon={icon} className="ml-2 mt-2" size="lg" />
               <p
                 href="#"
-                onClick={
-                  id === 4 ? handleUserLogout : () => dispatch(setOpenModal())
-                }
+                onClick={id === 4 ? handleUserLogout : handleCreateCommunity}
                 className="text-sm  text-gray-700 block px-4 py-2 "
               >
                 {name}

@@ -1,21 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAllComments } from "../../features/allComments";
-import axios from "axios";
+import { fetchComments } from "../../features/allComments";
 const CommentsField = ({ PostId }) => {
   const dispatch = useDispatch();
   const allComments = useSelector((state) => state.allComments.value);
-  if (allComments) {
-    console.log(allComments);
-  }
+
   useEffect(() => {
-    const getAllComments = async () => {
-      const fetchAllComments = await axios.get(
-        `http://localhost:3001/comments/byId/${PostId}`
-      );
-      dispatch(setAllComments(fetchAllComments.data));
-    };
-    getAllComments();
+    dispatch(fetchComments(PostId));
   }, []);
   return (
     <div>

@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch,useSelector } from "react-redux";
 import Form from "./Form/Form";
 import Navbar from "../Navbar/Navbar";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import ProcessingBtn from "./SkeletonScreen/SkeletonScreen";
-
+import { fetchCommunities } from "../../features/communities";
 const AddPost = () => {
-  const [communities, setCommunities] = useState([]);
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getCommunities = async () => {
-      const data = await axios.get("http://localhost:3001/community");
-      setCommunities(data.data);
-    };
-    getCommunities();
+    dispatch(fetchCommunities());
   }, []);
 
   return (
@@ -29,7 +25,7 @@ const AddPost = () => {
           {isLoading ? (
             <ProcessingBtn />
           ) : (
-            <Form setLoading={setLoading} communities={communities} />
+            <Form setLoading={setLoading}  />
           )}
         </section>
       </div>

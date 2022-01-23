@@ -1,7 +1,8 @@
 import React from "react";
-import axios from "axios";
-import { Formik, ErrorMessage } from "formik";
+import { RegisterUserThunk } from "../../features/currentUser";
+import { Formik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainForm from "./MainForm/MainForm";
 const RegistrationSchema = Yup.object({
@@ -18,18 +19,12 @@ const RegistrationSchema = Yup.object({
 });
 
 const Registration = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const registerUser = async (values) => {
-    const { name, email, password } = values;
     try {
-      const res = await axios.post("http://localhost:3001/users/register", {
-        name,
-        email,
-        password,
-      });
+      dispatch(RegisterUserThunk(values));
       navigate("/login");
-
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
