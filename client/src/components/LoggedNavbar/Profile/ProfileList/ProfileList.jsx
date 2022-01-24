@@ -13,12 +13,6 @@ import {
 const ProfileList = ({ isOpened }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const profileLinks = [
-    { id: 1, name: "Profile", icon: faUser },
-    { id: 2, name: "User Settings", icon: faUserCog },
-    { id: 3, name: " Create a Community", icon: faPlusSquare },
-    { id: 4, name: "Sign out", icon: faSignOutAlt },
-  ];
   const handleUserLogout = () => {
     localStorage.clear();
     dispatch(setUserLogout());
@@ -28,6 +22,32 @@ const ProfileList = ({ isOpened }) => {
     navigate("/");
     dispatch(setOpenModal());
   };
+  const profileLinks = [
+    {
+      id: 1,
+      name: "Profile",
+      icon: faUser,
+      onClickFunc: () => navigate("/profile"),
+    },
+    {
+      id: 2,
+      name: "User Settings",
+      icon: faUserCog,
+      onClickFunc: () => navigate("/"),
+    },
+    {
+      id: 3,
+      name: " Create a Community",
+      icon: faPlusSquare,
+      onClickFunc: handleCreateCommunity,
+    },
+    {
+      id: 4,
+      name: "Sign out",
+      icon: faSignOutAlt,
+      onClickFunc: handleUserLogout,
+    },
+  ];
   return (
     <div
       id="dropdown"
@@ -36,13 +56,13 @@ const ProfileList = ({ isOpened }) => {
       } bg-white  text-base z-10 list-none divide-y divide-gray-100 rounded shadow max-w-lg xl:w-full dark:bg-gray-700 absolute left-72  sm:right-30 sm:left-auto `}
     >
       <ul className="py-1" aria-labelledby="dropdownButton">
-        {profileLinks.map(({ id, name, icon }) => {
+        {profileLinks.map(({ id, name, icon, onClickFunc }) => {
           return id === 4 || 3 ? (
             <li className="flex hover:bg-gray-100">
               <FontAwesomeIcon icon={icon} className="ml-2 mt-2" size="lg" />
               <p
                 href="#"
-                onClick={id === 4 ? handleUserLogout : handleCreateCommunity}
+                onClick={onClickFunc}
                 className="text-sm  text-gray-700 block px-4 py-2 "
               >
                 {name}

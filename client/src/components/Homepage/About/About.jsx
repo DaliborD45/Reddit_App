@@ -7,7 +7,7 @@ const About = () => {
         <section className="ml-5 mt-3">
           <ul className="focus">
             {list.map((link) => {
-              return <p className="focus:border-b text-sm pb-1">{link}</p>;
+              return <p className="focus:border-b hover:underline hover:text-gray-600 text-sm pb-1">{link}</p>;
             })}
           </ul>
         </section>
@@ -15,14 +15,14 @@ const About = () => {
         <section className="ml-14 mt-3">
           <ul>
             {list2.map((link) => {
-              return <p className="focus:border-b text-sm">{link}</p>;
+              return <p className="focus:border-b hover:underline hover:text-gray-600 text-sm">{link}</p>;
             })}
           </ul>
         </section>
       </section>
 
       <p className="ml-5 text-xs pt-5">
-        Reddit Inc © 2021 . All rights reserved
+        Scam Inc © 2021 . All rights reserved
       </p>
     </div>
   );

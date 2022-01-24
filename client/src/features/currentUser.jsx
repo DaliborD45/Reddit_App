@@ -7,6 +7,7 @@ const initialStateValue = {
     id: null,
     preffered_posts: "",
     status: false,
+    createdAt: Date.now(),
   },
 };
 
@@ -65,6 +66,7 @@ const currentUser = createSlice({
       state.value.id = action.payload.id;
       state.value.preffered_posts = action.payload.preffered_posts;
       state.value.name = action.payload.name;
+      state.value.createdAt = action.payload.createdAt;
       state.value.status = true;
     });
   },

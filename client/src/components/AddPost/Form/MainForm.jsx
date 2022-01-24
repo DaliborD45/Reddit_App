@@ -4,7 +4,7 @@ import PostForm from "../PostForm/PostForm";
 import { tags } from "./Tags";
 import { navLinks } from "./NavLinks";
 
-const MainForm = ({ title, setTitle, image, setImage }) => {
+const MainForm = ({ image, setImage }) => {
   const clickedPostMethodHandler = (id) => setPostMethod(id);
   const [postMethod, setPostMethod] = useState(1);
 
@@ -23,17 +23,9 @@ const MainForm = ({ title, setTitle, image, setImage }) => {
           );
         })}
       </ul>
-      {postMethod === 1 && (
-        <PostForm title={title} setTitle={setTitle} tags={tags} />
-      )}
+      {postMethod === 1 && <PostForm tags={tags} />}
       {postMethod === 2 && (
-        <Image
-          title={title}
-          tags={tags}
-          image={image}
-          setTitle={setTitle}
-          setImage={setImage}
-        />
+        <Image tags={tags} image={image} setImage={setImage} />
       )}
     </div>
   );

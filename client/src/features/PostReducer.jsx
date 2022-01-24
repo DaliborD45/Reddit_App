@@ -11,6 +11,17 @@ export const fetchPosts = createAsyncThunk("getPosts", async () => {
   }
 });
 
+export const getPostsById = createAsyncThunk("getPostsById", async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3001/posts/posts/${parseInt(id)}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export const getPostsByCommunityId = createAsyncThunk(
   "getPostsByCommunityId",
   async (id) => {
@@ -38,15 +49,15 @@ export const deletePostThunk = createAsyncThunk(
 
 export const addPostThunk = createAsyncThunk(
   "addPost",
-  async (values, imageIdString) => {
-    const { content, title, communityId } = values;
+  async (attributes, imageIdString) => {
+    const { content, title, communityId } = attributes;
 
     const response = await axios.post(
       "http://localhost:3001/posts/addPost",
       {
         title,
         content,
-        imageId: null,
+        imageId: imageIdString,
         communityId: parseInt(communityId),
       },
       {
@@ -63,9 +74,6 @@ const allPosts = createSlice({
   name: "allPosts",
   initialState: initialStateValue,
   reducers: {
-    addPost: (state, action) => {
-      state.value.push(action.payload);
-    },
     setFilteredPosts: (state, action) => {
       state.filteredPostValue = action.payload;
     },
@@ -77,7 +85,7 @@ const allPosts = createSlice({
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.value = action.payload;
     });
-   
+
     builder.addCase(deletePostThunk.fulfilled, (state, action) => {
       state.value = state.value.filter(({ id }) => id !== action.payload);
     });

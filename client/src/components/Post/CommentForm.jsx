@@ -25,8 +25,9 @@ const CommentForm = ({ PostId }) => {
     <>
       <Formik
         initialValues={initialValues}
-        onSubmit={(value) => {
+        onSubmit={(value, { resetForm }) => {
           handleComment(value);
+          resetForm();
         }}
       >
         <Form>

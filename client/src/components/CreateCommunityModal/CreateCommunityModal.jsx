@@ -5,13 +5,11 @@ import Form from "./Form/Form";
 import { addCommunityThunk, addCommunities } from "../../features/communities";
 import { useSelector, useDispatch } from "react-redux";
 import { setCloseModal } from "../../features/modal";
-import axios from "axios";
 const CreateCommunityModal = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const isOpen = useSelector((state) => state.modal.isOpen);
   const dispatch = useDispatch();
-  // dispatch(setCloseModal());
-  const handleCommunitySubmit = (values) => {
+  const handleCommunitySubmit = async (values) => {
     dispatch(addCommunityThunk(values));
     dispatch(setCloseModal());
   };

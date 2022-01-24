@@ -11,16 +11,16 @@ export const addCommunityThunk = createAsyncThunk(
   "/addCommunity",
   async (values) => {
     const { communityName, communityTypes, adultContent } = values;
-    const res = await axios.post(
+    const response = await axios.post(
       "http://localhost:3001/community/createCommunity",
-      { name:communityName, type:communityTypes, adultContent },
+      { name: communityName, type: communityTypes, adultContent },
       {
         headers: {
           authToken: localStorage.getItem("accessToken"),
         },
       }
     );
-    console.log(res);
+    return response.data;
   }
 );
 
@@ -37,23 +37,19 @@ export const fetchCommunitiesById = createAsyncThunk(
 const allCommunities = createSlice({
   name: "allCommunities",
   initialState: initialStateValue,
-  reducers: {
-    addCommunities: (state, action) => {
-      state.value.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCommunities.fulfilled, (state, action) => {
-      // Add user to the state array
       state.value = action.payload;
     });
     builder.addCase(fetchCommunitiesById.fulfilled, (state, action) => {
-      // Add user to the state array
       state.currentCommunity = action.payload;
+    });
+    builder.addCase(addCommunityThunk.fulfilled, (state, action) => {
+      state.value.push(action.payload);
     });
 
     builder.addCase(addCommunityThunk.rejected, (state, { error }) => {
-      // Add user to the state array
       console.log(error);
     });
   },

@@ -16,15 +16,28 @@ const Form = ({ setLoading }) => {
   const dispatch = useDispatch();
   const communities = useSelector((state) => state.allCommunities.value);
   const [image, setImage] = useState(null);
-  const [imageIdString, setImageIdString] = useState(null);
   const handleAddPost = async (values) => {
+    const { content, communityId, title } = values;
+
     setLoading(true);
     if (image !== null) {
-      const response = await handleUploadImage();
-      setImageIdString(response);
+      var imageIdString = await handleUploadImage();
     }
     try {
-      dispatch(addPostThunk(values, imageIdString));
+      const post = await axios.post(
+        "http://localhost:3001/posts/addPost",
+        {
+          title,
+          content,
+          imageId: imageIdString ? imageIdString : null,
+          communityId: parseInt(communityId),
+        },
+        {
+          headers: {
+            authToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
       navigate("/");
       setLoading(false);
     } catch (error) {
@@ -41,8 +54,6 @@ const Form = ({ setLoading }) => {
       "https://api.cloudinary.com/v1_1/dqhkvx2z5/auto/upload",
       formData
     );
-    console.log(res);
-    console.log(res.data.public_id);
     return res.data.public_id;
   };
 
@@ -78,7 +89,7 @@ const Form = ({ setLoading }) => {
             </div>
           ) : null}
 
-          <MainForm setImage={setImage} />
+          <MainForm image={image} setImage={setImage} />
         </FormikForm>
       )}
     </Formik>

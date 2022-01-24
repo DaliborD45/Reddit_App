@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import AddPostAbout from "./AddPostAbout/AddPostAbout";
 import Form from "./Form/Form";
 import Navbar from "../Navbar/Navbar";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
@@ -17,17 +18,14 @@ const AddPost = () => {
     <>
       <Navbar />
       <LoggedNavbar />
-      <div className="w-screen h-screen bg-gray-300">
+      <div className="w-screen h-screen bg-gray-300 flex">
         <section className="w-11/12 md:w-[745px] shrink-0 mx-auto pt-40">
           <h1 className="font-semibold text-lg pb-3  border-b-2">
             Create a post
           </h1>
-          {isLoading ? (
-            <ProcessingBtn />
-          ) : (
-            <Form setLoading={setLoading}  />
-          )}
+          {isLoading ? <ProcessingBtn /> : <Form setLoading={setLoading} />}
         </section>
+        <AddPostAbout />
       </div>
     </>
   );

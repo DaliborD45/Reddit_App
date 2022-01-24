@@ -1,26 +1,31 @@
 import React from "react";
-const Image = ({ setTitle, setImage, tags }) => {
-  const handleTitleInput = (e) => {
-    setTitle(e.target.value);
+import { Field } from "formik";
+const Image = ({ image, setImage, tags }) => {
+  const handleImageChange = (event) => {
+    setImage(event.currentTarget.files[0]);
+    console.log(image);
+    console.log(event.currentTarget.files[0]);
   };
-
   return (
     <>
       <section className=" flex-row w-11/12 mx-auto  rounded-md mt-4  ">
         <section className="flex">
-          <textarea
+          <Field
             type="text"
             rows="2"
             placeholder="Title"
             className="w-full border border-gray-400 mx-auto px-5 py-2   focus focus:border-2  break-word"
-            onChange={(e) => handleTitleInput(e)}
             name="title"
           />
         </section>
         <section className="mt-5 mb-20">
           <input
-            className="block w-full text-sm text-gray-900  rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-transparent "
-            onChange={(event) => setImage(event.target.files[0])}
+            id="file"
+            name="file"
+            className="block w-full text-sm text-gray-900  cursor-pointer bg-gray-50 border-2 "
+            onChange={(event) => {
+              handleImageChange(event);
+            }}
             type="file"
           ></input>
         </section>

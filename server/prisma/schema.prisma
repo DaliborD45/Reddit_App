@@ -22,7 +22,8 @@ model Community {
 }
 
 model User {
-  id          Int             @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
   email       String          @unique
   password    String
   name        String

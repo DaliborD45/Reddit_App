@@ -8,6 +8,7 @@ import Post from "./components/Post/Post";
 import Community from "./components/Community/Community";
 import AllCommunities from "./components/AllCommunities/AllCommunities";
 import NoMatchPage from "./components/NoMatchPage/NoMatchPage";
+import Profile from "./components/Profile/Profile";
 const App = () => {
   return (
     <div>
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/post/:id" exact element={<Post />} />
         <Route path="/community/:id" exact element={<Community />} />
         <Route path="/addPost" exact element={<AddPost />} />
+        <Route path="/profile" exact element={<Profile />} />
         <Route path="/allCommunities" exact element={<AllCommunities />} />
         <Route path="*" exact element={<NoMatchPage />} />
       </Routes>

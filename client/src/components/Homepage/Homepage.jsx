@@ -48,7 +48,7 @@ const Homepage = () => {
             <Communities />
             <TryPremium />
             <Home />
-            <About />
+            <About className=""/>
           </section>
         </section>
       </div>

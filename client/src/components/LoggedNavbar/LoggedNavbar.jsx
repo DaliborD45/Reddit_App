@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { currentUserThunk } from "../../features/currentUser";
 import Dropdown from "./Dropdown/Dropdown";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,7 +28,7 @@ const LoggedNavbar = () => {
 
   return (
     isLoggedStatus && (
-      <div className="w-screen h-14 bg-gray-50 flex fixed">
+      <div className="w-screen h-14 bg-gray-50 flex fixed top-0">
         <Logo />
         <Dropdown />
         <SearchBar />
