@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedditAlien } from "@fortawesome/free-brands-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import ProfileList from "./ProfileList/ProfileList";
+import { Image as ShowImage,Transformation } from "cloudinary-react";
+
 import { useSelector } from "react-redux";
 const Profile = () => {
   const [isOpened, setToggleOpen] = useState(false);
-  const userDataName = useSelector((state) => state.currentUser.value.name);
+  const userData = useSelector((state) => state.currentUser.value);
 
   return (
     <>
@@ -17,8 +19,15 @@ const Profile = () => {
         type="button"
         onClick={() => setToggleOpen(isOpened ? false : true)}
       >
-        <FontAwesomeIcon icon={faRedditAlien} className="-ml-5" size="2x" />{" "}
-        <p className="pl-5 text-sm text-gray-600 truncate">{userDataName}</p>
+        <ShowImage
+          className="overflow-hidden rounded-full"
+          cloudName="dqhkvx2z5"
+          publicId={userData.profilePic}
+        >
+          <Transformation width="30" height="30" crop="scale" />
+        </ShowImage>
+        {/* <FontAwesomeIcon icon={faRedditAlien} className="-ml-5" size="2x" />{" "} */}
+        <p className="pl-5 text-lg text-gray-600 truncate">{userData.name}</p>
         <svg
           className="w-4 h-4 ml-2"
           fill="none"

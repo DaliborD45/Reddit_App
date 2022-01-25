@@ -13,6 +13,8 @@ import {
 const ProfileList = ({ isOpened }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+ 
+
   const handleUserLogout = () => {
     localStorage.clear();
     dispatch(setUserLogout());

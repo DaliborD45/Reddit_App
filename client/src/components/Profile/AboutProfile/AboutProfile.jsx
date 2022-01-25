@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-const AboutProfile = () => {
+import { Image as ShowImage,Transformation } from "cloudinary-react";
+
+const AboutProfile = ({ setModalOpen }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.currentUser.value);
   if (userData) {
@@ -15,11 +17,15 @@ const AboutProfile = () => {
         </section>
         <section className="h-[320px] bg-white w-full">
           <div className="w-11/12 mx-auto">
-            <section className="w-5/5 pt-2  flex justify-center mb-5 ">
-              <div className="bg-teal-300  rounded-full w-14 h-14">
-                <input type="file" className="overflow-hidden w-10 h-10 pl-2 pt-2"/>
-              </div>
-              <p className="font-bold pl-3 pt-3 text-3xl">{userData.name}</p>
+            <section className=" rounded-full pt-2  flex justify-center mb-5 ">
+              <ShowImage
+                className="overflow-hidden rounded-full"
+                cloudName="dqhkvx2z5"
+                publicId={userData.profilePic}
+              >
+                <Transformation width="80" height="80" crop="scale"  />
+              </ShowImage>
+              <p className="font-bold pl-3 pt-5 text-3xl">{userData.name}</p>
             </section>
 
             <section className="w-full flex  ml-1 font-bold mt-3">
@@ -34,7 +40,10 @@ const AboutProfile = () => {
             </section>
 
             <section className="w-full mx-auto">
-              <button className="w-full mt-5   rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold h-7 hover:opacity-90">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="w-full mt-5   rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold h-7 hover:opacity-90"
+              >
                 Update Profile
               </button>
             </section>

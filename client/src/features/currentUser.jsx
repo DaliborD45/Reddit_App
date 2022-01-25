@@ -8,6 +8,7 @@ const initialStateValue = {
     preffered_posts: "",
     status: false,
     createdAt: Date.now(),
+    profilePic:"",
   },
 };
 
@@ -51,7 +52,10 @@ const currentUser = createSlice({
   name: "currentUser",
   initialState: initialStateValue,
   reducers: {
-    setCurrentUser: (state, action) => {},
+    setChangedUser: (state, action) => {
+      state.value.name = action.payload.name;
+      state.value.profilePic = action.payload.ProfilePic;
+    },
 
     setUserLogout: (state, action) => {
       state.value.status = false;
@@ -66,11 +70,12 @@ const currentUser = createSlice({
       state.value.id = action.payload.id;
       state.value.preffered_posts = action.payload.preffered_posts;
       state.value.name = action.payload.name;
+      state.value.profilePic = action.payload.ProfilePic;
       state.value.createdAt = action.payload.createdAt;
       state.value.status = true;
     });
   },
 });
-export const { setCurrentUser, setUserStatus, setUserLogout } =
+export const { setChangedUser, setUserLogout } =
   currentUser.actions;
 export default currentUser.reducer;

@@ -22,14 +22,15 @@ model Community {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
   email       String          @unique
   password    String
   name        String
   Posts       Post[]
   Likes       Like[]
   Communities CommunityUser[]
+  ProfilePic  String          @default("")
 }
 
 model CommunityUser {
