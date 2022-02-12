@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 const { PrismaClient } = require("@prisma/client");
 const { checkAuth } = require("../middlewares/AuthMiddlewaware");
 const JWT = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const prisma = new PrismaClient();
 
 router.post(
