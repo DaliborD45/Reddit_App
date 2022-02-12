@@ -27,13 +27,14 @@ router.get("/byId/:id", async (req, res) => {
 
 router.post("/", checkAuth, async (req, res) => {
   try {
-    const { name } = req.user;
+    const { name, profilePic } = req.user;
     const { content, postId } = req.body;
     const allComments = await prisma.comment.create({
       data: {
-        username: name,
-        content,
-        postId:parseInt(postId),
+        authorName: name,
+        content: content,
+        postId: postId,
+        authorProfilePic: profilePic,
       },
     });
     return res.status(200).json(allComments);

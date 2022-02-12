@@ -63,7 +63,9 @@ router.post("/login", async (req, res) => {
       {
         email,
         id: user.id,
+        createdAt: user.createdAt,
         name: user.name,
+        profilePic: user.ProfilePic,
       },
       process.env.DB_KEY
     );
@@ -74,43 +76,32 @@ router.post("/login", async (req, res) => {
 router.put("/updateUser", checkAuth, async (req, res) => {
   const { updatedName, profilePicString } = req.body;
   const { name, email } = req.user;
-  const kys = await prisma.user.update({
-    where: {
-      email: email,
-    },
-    data: {
-      name: updatedName,
-      ProfilePic: profilePicString,
-    },
-  });
-  // prisma.user.update({
-  //   where: {
-  //     email: email,
-  //   },
-  //   data: {
-  //   },
-  // });
-  return res.status(200).json(kys);
-});
-
-router.get("/getUserData", checkAuth, async (req, res) => {
-  function exclude(user, ...keys) {
-    for (let key of keys) {
-      delete user[key]
-    }
-    return user
-  }
-  const { email } = req.user;
-  try {
-    const userData = await prisma.user.findFirst({
+  if (updatedName.length > 0) {
+    const kys = await prisma.user.update({
       where: {
         email: email,
       },
+      data: {
+        name: updatedName,
+      },
     });
-    const userWithoutPassword = exclude(userData, "password");
-    res.status(200).json(userWithoutPassword);
-  } catch (error) {
-    res.status(500).json(error);
   }
+  if (profilePicString) {
+    const kys = await prisma.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        ProfilePic: profilePicString,
+      },
+    });
+  }
+
+  return res.status(200).json("updated");
 });
+
+router.get("/getUserData", checkAuth, async (req, res) => {
+  res.status(200).json(req.user);
+});
+
 module.exports = router;

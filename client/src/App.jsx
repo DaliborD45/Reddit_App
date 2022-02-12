@@ -10,6 +10,7 @@ import AllCommunities from "./components/AllCommunities/AllCommunities";
 import NoMatchPage from "./components/NoMatchPage/NoMatchPage";
 import Profile from "./components/Profile/Profile";
 const App = () => {
+
   return (
     <div>
       <Routes>

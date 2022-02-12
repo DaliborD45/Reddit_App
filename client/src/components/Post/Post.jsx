@@ -54,9 +54,9 @@ const Post = () => {
     <>
       <Navbar />
       <LoggedNavbar />
-      <div className="w-screen min-h-screen bg-gray-700 pt-10">
+      <div className="max-w-screen min-h-screen bg-gray-700 pt-10 ">
         <section className="flex w-3/3 min-h-screen h-full bg-gray-300 mx-auto md:w-[1188px] shrink-0">
-          <section className="max-w-3xl mx-auto md:w-3/5 md:ml-28 pt-10 min-h-screen h-full ">
+          <section className="max-w-3xl mx-auto md:w-3/5 md:ml-28 pt-10 min-h-screen h-full mr-4">
             <PostBody
               postData={postData}
               votes={votes}
@@ -69,8 +69,13 @@ const Post = () => {
               <CommentsField PostId={id} />
             </section>
           </section>
-          <section className="w-1/3 hidden lg:block">
-            <CommunityInfo communityName={community.name} />
+          <section className="w-[350px] mr-5 hidden lg:block">
+            <CommunityInfo
+              communityName={community.name}
+              communityId={community.id}
+              communityDescription={community.description}
+              communityProfilePic={community.profilePic}
+            />
           </section>
         </section>
       </div>

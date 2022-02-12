@@ -21,6 +21,7 @@ const Image = ({ image, setImage, tags }) => {
         <section className="mt-5 mb-20">
           <input
             id="file"
+            data-testid="pictureInput"
             name="file"
             className="block w-full text-sm text-gray-900  cursor-pointer bg-gray-50 border-2 "
             onChange={(event) => {

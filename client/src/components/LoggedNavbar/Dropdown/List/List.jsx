@@ -1,13 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useRef, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useOutsideAlerter } from "../../../../hooks/useOutsideAlerter";
 import { useNavigate } from "react-router-dom";
+import { fetchCommunities } from "../../../../features/communities";
 const List = ({ open }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchCommunities());
+  }, []);
   const allCommunities = useSelector((state) => state.allCommunities.value);
   const handleNavigation = (id) => {
     navigate(`/community/${id}`);
     window.location.reload();
   };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
   return (
     open && (
       <ul

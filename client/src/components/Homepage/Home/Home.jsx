@@ -9,7 +9,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
-    <div className="w-80 bg-white h-64  -ml-40 mt-5 rounded-md border border-gray-400 ">
+    <div className="w-80 bg-white h-64   mt-5 rounded-md border border-gray-400 ">
       <section className="h-1/6 w-full bg-universe-img "></section>
       <section className="flex ml-5">
         <FontAwesomeIcon

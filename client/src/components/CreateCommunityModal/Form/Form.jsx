@@ -22,7 +22,18 @@ const Form = ({ errorMessage }) => {
               </h3>
             </div>
             <div className="p-6 -mt-4">
-              <Field name="communityName" className="w-full border pl-2 my-5 py-1 text-lg border-black rounded-md" errorMessage={errorMessage} />
+              <label className="text-lg font-semibold">Community Name</label>
+              <Field
+                name="communityName"
+                className="w-full border pl-2 mb-5 mt-1 py-1 text-lg border-black rounded-md"
+                errorMessage={errorMessage}
+              />
+              <label className="text-lg font-semibold">Description</label>
+              <Field
+                name="description"
+                className="w-full border pl-2 mb-5 mt-1 py-1 text-lg border-black rounded-md"
+                errorMessage={errorMessage}
+              />
               <CommunityTypes errorMessage={errorMessage} />
               <AdultCheck />
             </div>

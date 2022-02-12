@@ -9,25 +9,34 @@ const CommentsField = ({ PostId }) => {
   const userDataProfile = useSelector(
     (state) => state.currentUser.value.profilePic
   );
+  console.log(allComments);
 
   useEffect(() => {
     dispatch(fetchComments(PostId));
   }, []);
   return (
     <div>
-      {allComments.map(({ content, username, id }) => {
+      {allComments.map(({ content, authorName, id }) => {
         return (
-          <div key={id} className="w-full flex  pt-4 pl-6 py-5">
-            <ShowImage
-              className="overflow-hidden rounded-full transform scale-75"
-              cloudName="dqhkvx2z5"
-              publicId={userDataProfile}
-            >
-              <Transformation width="50" height="40" crop="scale" />
-            </ShowImage>
-            <section className="mt-1 ml-3">
-              <label className="text-xs font-bold">{username}</label>
-              <p className="pt-1 text-md font-semibold">{content}</p>
+          <div key={id} className="w-full   pt-4 pl-6 py-5">
+            <section className="flex">
+              <ShowImage
+                className="overflow-hidden rounded-full transform scale-75"
+                cloudName="dqhkvx2z5"
+                publicId={userDataProfile}
+              >
+                <Transformation width="54" height="50" crop="scale" />
+              </ShowImage>
+              <section className="block"></section>
+              <section className="mt-1 ml-3">
+                <label className="text-xs font-bold">u/{authorName}</label>
+                <p className="pt-0.5 text-md font-semibold">{content}</p>
+              </section>
+            </section>
+            <section className="flex text-xs text-gray-500 ml-14 mt-1 hover:text-gray-400 hover:cursor-pointer">
+              <p className="px-3">Reply</p>
+              <p className="px-3">Share</p>
+              <p className="px-3">Report</p>
             </section>
           </div>
         );

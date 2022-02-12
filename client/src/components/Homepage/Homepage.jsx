@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
-import Postcard from "../Postcard/Postcard";
 import { useSelector, useDispatch } from "react-redux";
+import PostsCardsList from "../PostsCardsList/PostsCardsList";
 import LoggedNavbar from "../LoggedNavbar/LoggedNavbar";
 import Communities from "./Communities/Communities";
 import AddPost from "./AddPost/AddPost";
@@ -10,6 +10,7 @@ import Home from "./Home/Home";
 import About from "./About/About";
 import { fetchPosts } from "../../features/PostReducer";
 import CreateCommunityModal from "../CreateCommunityModal/CreateCommunityModal";
+import NoPostsFound from "../NoPostsFound/NoPostsFound";
 const Homepage = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts.value);
@@ -23,32 +24,20 @@ const Homepage = () => {
         <Navbar />
         <LoggedNavbar />
         <CreateCommunityModal />
-        <section className="lg:w-[1050px] shrink-0  mb-20  flex md:ml-10 lg:mx-auto mt-10  ">
-          <section className="w-full ">
+        <section className="flex justify-between lg:w-2/3 shrink-0  mb-20   md:ml-10 lg:mx-auto mt-10  ">
+          <section className="w-10/12 -mr-20">
             <AddPost />
-            {allPosts
-              .map((attribute) => {
-                return (
-                  <Postcard
-                    key={attribute.id}
-                    title={attribute.title}
-                    text={attribute.content}
-                    id={attribute.id}
-                    postLikes={attribute.Like}
-                    imageId={attribute.imageId}
-                    communityId={attribute.communityId}
-                    authorName={attribute.authorName}
-                    PostAuthorId={attribute.authorId}
-                  />
-                );
-              })
-              .reverse()}
+            {allPosts.length > 0 ? (
+              <PostsCardsList allPosts={allPosts} />
+            ) : (
+              <NoPostsFound />
+            )}
           </section>
           <section className="hidden lg:block">
             <Communities />
             <TryPremium />
             <Home />
-            <About className=""/>
+            <About  />
           </section>
         </section>
       </div>

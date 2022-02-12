@@ -5,8 +5,8 @@ import { Field } from "formik";
 
 const CommunityTypes = ({ errorMessage }) => {
   return (
-    <fieldset>
-      <p className="font-semibold mb-3 ml-1">Community type</p>
+    <fieldset className="">
+      <label className="font-semibold mb-3 ">Community type</label>
       {CommunityList.map(({ label, span, icon }) => {
         return (
           <div className="flex items-center mb-4">

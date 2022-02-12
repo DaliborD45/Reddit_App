@@ -11,7 +11,7 @@ const Communities = () => {
     dispatch(fetchCommunities());
   }, []);
   return (
-    <div className="bg-white w-80 h-96 rounded-lg  mt-8 r -ml-40 border border-gray-400">
+    <div className="bg-white w-80 h-96 rounded-lg  mt-8 border border-gray-400">
       <section className="h-1/5 border bg-clouds-img rounded-t-lg bg-cover">
         <p className="ml-5 pt-10 font-bold text-xl text-white text-shadow">
           Communities near you

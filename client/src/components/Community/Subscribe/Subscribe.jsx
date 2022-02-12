@@ -54,7 +54,7 @@ const Subscribe = ({ communityId }) => {
     <>
       {isSubscribed ? (
         <button
-          className="bg-red-500 text-white font-bold mx-4  mt-7 md:mx-7 px-3 py-1 rounded-full hover:bg-opacity-90"
+          className="font-semibold text-white bg-red-500 max-h-8 px-4 mt-9 ml-5 rounded-lg hover:bg-opacity-90"
           onClick={handleCommunityUnsubscribe}
         >
           Joined
@@ -62,7 +62,7 @@ const Subscribe = ({ communityId }) => {
       ) : (
         <button
           onClick={handleCommunitySubscribe}
-          className="bg-blue-500 text-white font-bold  mx-4  mt-7 md:mx-7 px-3 py-1 rounded-full hover:bg-opacity-90"
+          className="font-semibold text-white bg-blue-500 max-h-8 px-4 mt-9 ml-5 rounded-lg hover:bg-opacity-90"
         >
           Subscribe
         </button>

@@ -2,7 +2,7 @@ import React from "react";
 import { list, list2 } from "./Lists";
 const About = () => {
   return (
-    <div className="bg-white w-80 h-64 rounded-sm  mt-8 r -ml-40  ">
+    <div className="bg-white w-12/12 h-64 rounded-sm  mt-8 mx-auto border border-gray-500">
       <section className="flex">
         <section className="ml-5 mt-3">
           <ul className="focus">

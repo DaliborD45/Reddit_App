@@ -4,7 +4,7 @@ const AddPost = () => {
   const navigate = useNavigate();
   return (
     <div
-      className=" h-16  mt-8 rounded-sm md:max-w-3xl lg:w-9/12 bg-gray-50 flex"
+      className=" h-16  mt-8 rounded-sm md:max-w-3xl lg:w-full bg-gray-50 flex border border-gray-300"
       onClick={() => navigate("/addPost")}
     >
       <svg

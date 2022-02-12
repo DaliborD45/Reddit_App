@@ -13,7 +13,6 @@ import {
 const ProfileList = ({ isOpened }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
 
   const handleUserLogout = () => {
     localStorage.clear();
@@ -31,12 +30,7 @@ const ProfileList = ({ isOpened }) => {
       icon: faUser,
       onClickFunc: () => navigate("/profile"),
     },
-    {
-      id: 2,
-      name: "User Settings",
-      icon: faUserCog,
-      onClickFunc: () => navigate("/"),
-    },
+
     {
       id: 3,
       name: " Create a Community",

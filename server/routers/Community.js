@@ -8,7 +8,8 @@ router.get("/", async (req, res) => {
   res.status(200).json(allPosts);
 });
 router.post("/createCommunity", checkAuth, async (req, res) => {
-  const { name, type, adultContent } = req.body;
+  const { name, type, adultContent, description } = req.body;
+  const { id } = req.user;
   const isCommunityCreated = await prisma.community.findFirst({
     where: { name },
   });
@@ -21,6 +22,8 @@ router.post("/createCommunity", checkAuth, async (req, res) => {
           name,
           type,
           adultContent,
+          creatorId: parseInt(id),
+          description,
         },
       });
       return res.status(200).json(addedCommunity);
@@ -47,6 +50,58 @@ router.get("/byId/:id", async (req, res) => {
       where: { id: parseInt(id) },
     });
     return res.status(200).json(finded);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.put("/updateCommunity", async (req, res) => {
+  const { communityId, updatedName, communityPic, updatedCommunityTypes } =
+    req.body;
+  try {
+    if (updatedName.length > 1) {
+      const updatedCommunity = await prisma.community.update({
+        where: {
+          id: parseInt(communityId),
+        },
+        data: {
+          name: updatedName,
+        },
+      });
+    }
+    if (communityPic) {
+      const updatedCommunity = await prisma.community.update({
+        where: {
+          id: parseInt(communityId),
+        },
+        data: {
+          profilePic: communityPic,
+        },
+      });
+    }
+    if (updatedCommunityTypes) {
+      const updatedCommunity = await prisma.community.update({
+        where: {
+          id: parseInt(communityId),
+        },
+        data: {
+          type: updatedCommunityTypes,
+        },
+      });
+    }
+    return res.status(200).json("updated");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.get("/byUserId", checkAuth, async (req, res) => {
+  const { id } = req.user;
+  try {
+    const response = await prisma.community.findMany({
+      where: { creatorId: id },
+    });
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }

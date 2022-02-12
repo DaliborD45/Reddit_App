@@ -4,6 +4,7 @@ import votesReducer from "../features/votes";
 import postsReducer from "../features/PostReducer";
 import allCommentsReducer from "../features/allComments";
 import modalReducer from "../features/modal";
+import featureModalReducer from "../features/featureModalReducer";
 import allCommunitiesReducer from "../features/communities";
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     allCommunities: allCommunitiesReducer,
     votes: votesReducer,
     modal: modalReducer,
+    featureModal: featureModalReducer,
   },
   devTools: true,
 });

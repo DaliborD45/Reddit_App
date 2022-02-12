@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const initialStateValue = { value: [], filteredPostValue: [], commIdPosts: [] };
+const initialStateValue = {
+  value: [],
+  filteredPostValue: [],
+  commIdPosts: [],
+  userIdPosts: [],
+};
 
 export const fetchPosts = createAsyncThunk("getPosts", async () => {
   try {
@@ -10,6 +15,16 @@ export const fetchPosts = createAsyncThunk("getPosts", async () => {
     console.log(error);
   }
 });
+
+export const getPostsByUserIdThunk = createAsyncThunk(
+  "getPostsByUserId",
+  async (userId) => {
+    const response = await axios.get(
+      `http://localhost:3001/posts/byUserId/${parseInt(userId)}`
+    );
+    return response.data;
+  }
+);
 
 export const getPostsById = createAsyncThunk("getPostsById", async (id) => {
   try {
@@ -91,6 +106,9 @@ const allPosts = createSlice({
     });
     builder.addCase(getPostsByCommunityId.fulfilled, (state, action) => {
       state.commIdPosts = action.payload;
+    });
+    builder.addCase(getPostsByUserIdThunk.fulfilled, (state, action) => {
+      state.userIdPosts = action.payload;
     });
   },
 });

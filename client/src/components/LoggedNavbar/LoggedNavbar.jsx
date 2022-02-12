@@ -3,7 +3,6 @@ import { currentUserThunk } from "../../features/currentUser";
 import Dropdown from "./Dropdown/Dropdown";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUserStatus, setCurrentUser } from "../../features/currentUser";
 import Profile from "./Profile/Profile";
 import SearchBar from "./SearchBar/SearchBar";
 import Logo from "./Logo/Logo";

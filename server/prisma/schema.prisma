@@ -16,6 +16,9 @@ model Community {
   updatedAt    DateTime        @updatedAt
   name         String
   type         String
+  description  String          @default("") @db.Text
+  profilePic   String?         @default("")
+  creatorId    Int
   adultContent Boolean         @default(false)
   Posts        Post[]
   Users        CommunityUser[]
@@ -62,13 +65,14 @@ model Post {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  content   String
-  username  String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    Int
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  post             Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId           Int
+  content          String
+  authorName       String
+  authorProfilePic String
 }
 
 model Like {

@@ -1,41 +1,54 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Image as ShowImage,Transformation } from "cloudinary-react";
+import { Image as ShowImage, Transformation } from "cloudinary-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const AboutProfile = ({ setModalOpen }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.currentUser.value);
   if (userData) {
     console.log(userData);
+
   }
   return (
-    <div className="w-[350px] mx-auto mt-10 h-2/4 border border-gray-400 rounded-sm">
+    <div className="w-[350px] mx-auto mt-10  border border-gray-400 rounded-sm">
       <div className=" mx-auto">
         <section className="h-[50px] w-full bg-blue-500">
-          <h1 className="font-bold text-white pt-2.5 pl-2.5">About User</h1>
+          <h1 className="font-bold text-white pt-2.5 pl-2.5">About Users</h1>
         </section>
         <section className="h-[320px] bg-white w-full">
           <div className="w-11/12 mx-auto">
             <section className=" rounded-full pt-2  flex justify-center mb-5 ">
-              <ShowImage
-                className="overflow-hidden rounded-full"
-                cloudName="dqhkvx2z5"
-                publicId={userData.profilePic}
-              >
-                <Transformation width="80" height="80" crop="scale"  />
-              </ShowImage>
+              {userData.profilePic ? (
+                <ShowImage
+                  className="overflow-hidden rounded-full mt-2 "
+                  cloudName="dqhkvx2z5"
+                  publicId={userData.profilePic}
+                >
+                  <Transformation width="80" height="80" crop="scale" />
+                </ShowImage>
+              ) : (
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="mr-5 mt-2"
+                  size="3x"
+                />
+              )}
               <p className="font-bold pl-3 pt-5 text-3xl">{userData.name}</p>
             </section>
 
-            <section className="w-full flex  ml-1 font-bold mt-3">
+            <section className="w-full flex  ml-1 font-bold mt-2">
               <section>
-                <p>1</p>
-                <p className="font-normal text-sm">Karma</p>
+                <p className="font-normal ">Karma</p>
+                <p className="pl-4">1</p>
               </section>
               <section className="pl-20">
-                <p>{userData.createdAt}</p>
-                <p className="font-normal text-sm">Cake date</p>
+                <p className="font-normal ">Cake date</p>
+                <p className="font-semilight text-xs pl-1">
+                  {userData.createdAt}
+                </p>
               </section>
             </section>
 

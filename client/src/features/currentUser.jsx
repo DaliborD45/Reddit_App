@@ -68,9 +68,8 @@ const currentUser = createSlice({
     builder.addCase(currentUserThunk.fulfilled, (state, action) => {
       state.value.email = action.payload.email;
       state.value.id = action.payload.id;
-      state.value.preffered_posts = action.payload.preffered_posts;
       state.value.name = action.payload.name;
-      state.value.profilePic = action.payload.ProfilePic;
+      state.value.profilePic = action.payload.profilePic;
       state.value.createdAt = action.payload.createdAt;
       state.value.status = true;
     });

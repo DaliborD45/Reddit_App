@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Formik, Field, Form as FormikForm } from "formik";
+import { Formik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-import { setUserLogout } from "../../../features/currentUser";
+import { setUserLogout } from "../../../../features/currentUser";
 import { useDispatch } from "react-redux";
-import ProfileForm from "./ProfileForm/ProfileForm";
-const UpdateProfileModal = ({ setModalOpen, isModalOpen }) => {
+import UpdateCommunityForm from "./UpdateCommunityForm/UpdateCommunityForm";
+
+const UpdateCommunityModal = ({ setModalOpen, isModalOpen, communityId }) => {
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const dispatch = useDispatch();
   const handleUserLogout = () => {
@@ -33,8 +34,13 @@ const UpdateProfileModal = ({ setModalOpen, isModalOpen }) => {
     }
     try {
       const response = await axios.put(
-        "http://localhost:3001/users/updateUser",
-        { updatedName: values.name, profilePicString: imageIdString },
+        "http://localhost:3001/community/updateCommunity",
+        {
+          updatedName: values.communityName,
+          updatedCommunityTypes: values.communityTypes,
+          communityPic: imageIdString ? imageIdString : null,
+          communityId: communityId,
+        },
         {
           headers: {
             authToken: localStorage.getItem("accessToken"),
@@ -43,7 +49,11 @@ const UpdateProfileModal = ({ setModalOpen, isModalOpen }) => {
       );
       console.log(response.data);
 
-      // handleUserLogout();
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        handleUserLogout();
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -53,20 +63,22 @@ const UpdateProfileModal = ({ setModalOpen, isModalOpen }) => {
     isModalOpen && (
       <Formik
         initialValues={{
-          name: "",
-          password: "",
+          communityName: "",
+          communityTypes: "",
         }}
         onSubmit={(values) => {
           handleUpdateProfile(values);
+          console.log(values);
         }}
       >
-        <ProfileForm
+        <UpdateCommunityForm
           setProfilePic={setProfilePic}
           setModalOpen={setModalOpen}
+          isLoading={isLoading}
         />
       </Formik>
     )
   );
 };
 
-export default UpdateProfileModal;
+export default UpdateCommunityModal;

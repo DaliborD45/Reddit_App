@@ -29,11 +29,11 @@ const PostBody = ({ postData, votes, setVotes, id, community }) => {
             className="max-w-full max-h-full mx-auto"
           />
         </section>
-        <DeleteButton PostAuthorId={postData.authorId} PostId={id} />
 
         <CommentForm postData={postData} PostId={id} />
         <section className="border-b-2 border-gray-300 w-full pt-4"></section>
       </section>
+      <DeleteButton PostAuthorId={postData.authorId} PostId={id} />
     </div>
   );
 };
