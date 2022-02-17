@@ -49,7 +49,7 @@ const Subscribe = ({ communityId }) => {
       }
     };
     isSubscribedHandler();
-  }, []);
+  }, [communityId]);
   return (
     <>
       {isSubscribed ? (

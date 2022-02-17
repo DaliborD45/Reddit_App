@@ -1,6 +1,32 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { fetchCommunities } from "../../../features/communities";
 const SearchBar = () => {
+  const navigate = useNavigate();
+  const [filteredData, setFilteredData] = useState([]);
+  const allCommunities = useSelector((state) => state.allCommunities.value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCommunities());
+  }, []);
+
+  const handleSearch = (e) => {
+    const searchedValue = e.target.value;
+    const filteredComms = allCommunities.filter(({ name }) => {
+      return name.toLowerCase().includes(searchedValue);
+    });
+    if (searchedValue !== "") {
+      setFilteredData(filteredComms);
+    } else {
+      setFilteredData([]);
+    }
+  };
+
+  const handleNavigate = (id) => {
+    navigate(`/community/${id}`, { replace: true });
+    window.location.reload();
+  };
   return (
     <section className=" relative  text-gray-600 w-2/5 ml-3 my-auto">
       <input
@@ -8,7 +34,18 @@ const SearchBar = () => {
         type="search"
         name="search"
         placeholder="Search Reddit"
+        onChange={(e) => handleSearch(e)}
       />
+      {filteredData.map(({ name, id }) => {
+        return (
+          <p
+            onClick={() => handleNavigate(id)}
+            className="w-full h-7 font-bold bg-white border border-b-gray-500 pl-5 hover:bg-slate-100"
+          >
+            {name}
+          </p>
+        );
+      })}
       <button type="submit" className="absolute right-4 -top-1 mt-4 text-right">
         <svg
           fill="#000000"
