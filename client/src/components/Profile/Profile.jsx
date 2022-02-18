@@ -26,10 +26,7 @@ const Profile = () => {
     <div className="bg-gray-300 overflow-x-hidden  min-h-screen ">
       <LoggedNavbar />
       <section className="lg:w-[1250px] shrink-0  mb-20  flex md:ml-10 lg:mx-auto mt-10  ">
-        <section className="w-10/12 pl-20">
-          <section className="w-9/12 text-center">
-            <h1 className="pt-8   font-bold text-4xl ">Users Posts</h1>
-          </section>
+        <section className="w-10/12 pl-20 pt-16">
           <AddPost />
           <section>
             {allPosts.length > 0 ? (
@@ -39,7 +36,7 @@ const Profile = () => {
             )}
           </section>
         </section>
-        <section className="hidden lg:block -ml-40 mt-16">
+        <section className="hidden lg:block -ml-40 mt-14">
           <AboutProfile className="" setModalOpen={setModalOpen} />
           <MyCommunities />
         </section>

@@ -136,7 +136,7 @@ const Postcard = ({
               <ShowImage
                 cloudName="dqhkvx2z5"
                 publicId={imageId}
-                className="max-w-md max-h-fit mx-auto "
+                className="max-w-md max-h-[600px] mx-auto "
               />
             </section>
           )}

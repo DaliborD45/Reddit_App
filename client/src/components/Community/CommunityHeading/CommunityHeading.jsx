@@ -13,7 +13,7 @@ const AboutCommunity = ({ communityData }) => {
           <section className="">
             {communityData.profilePic ? (
               <ShowImage
-                className="overflow-hidden rounded-full mt-2 mr-7"
+                className="overflow-hidden rounded-full mt-2 mr-7 z-20"
                 cloudName="dqhkvx2z5"
                 publicId={communityData.profilePic}
               >

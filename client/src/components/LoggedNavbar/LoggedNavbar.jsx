@@ -28,7 +28,7 @@ const LoggedNavbar = () => {
 
   return (
     isLoggedStatus && (
-      <div className="w-screen h-14 bg-gray-50 flex fixed top-0">
+      <div className="w-screen h-14 bg-gray-50 flex fixed top-0 z-30">
         <Logo />
         <Dropdown />
         <SearchBar />

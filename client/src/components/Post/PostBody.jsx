@@ -26,7 +26,7 @@ const PostBody = ({ postData, votes, setVotes, id, community }) => {
           <ShowImage
             cloudName="dqhkvx2z5"
             publicId={postData.imageId}
-            className="max-w-full max-h-full mx-auto"
+            className="max-w-lg max-h-[500px] mx-auto"
           />
         </section>
 
